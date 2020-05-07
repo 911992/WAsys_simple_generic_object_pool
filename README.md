@@ -8,10 +8,10 @@ A very simple and generic Object Pooling pattern implementation.
 1. Java 1.7 or later
 
 ## Class Diagram
-![Class Diagram](./_diagrams_/class_diagram_partial.svg)
+![Class Diagram](./_diagrams/class_diagram_partial.svg)
 
 ## Composition Structure
-![Composition Structure Diagram](./_diagrams_/composite_struc_diagram_partial.svg)
+![Composition Structure Diagram](./_diagrams/composite_struc_diagram_partial.svg)
 
 ## Overview
 Implementation of a basic/generic Object Pooling(Interning) pattern in Java. Considering following characteristics of the implementation.
@@ -34,7 +34,7 @@ Considering following steps need to be done in order to utilize this Object Pool
 4. Ask for an `Object_Pool` instance from class `Pool_Context`, or instancing an `Object_Pool_Type_Wrapper` class.
 
 ## `Generic_Object_Pool` Activity | State Diagram
-![Composition Structure Diagram](./_diagrams_/object_pool_state_partial.svg)
+![Composition Structure Diagram](./_diagrams/object_pool_state_partial.svg)
 
 ### Sample Usage
 You may check [this repo]([)https://github.com/911992/WAsys_simple_generic_object_pool_sample_usage)
