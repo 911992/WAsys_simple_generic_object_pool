@@ -28,10 +28,10 @@ A very simple and generic Object Pooling pattern implementation.
     * Type check on unregister pool to make sure given arg is not a out-of-context instance
 7. `Source_Code::Pool_Context`
     * Check for associated pool null-check before call the release method
-2. Repo
+8. Repo
     * Updated FAQ section in this file
 
-3. Diagrams
+9. Diagrams
     * Updated class diagram
     * Updated activity|state diagram
 **Initial Release 0.1** (May 6, 2020)
