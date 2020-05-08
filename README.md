@@ -4,7 +4,14 @@ A very simple and generic Object Pooling pattern implementation.
 ## Revision History
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*
 
-**0.2** (May 8, 2020)
+**0.3** (May 9, 2020)  
+
+0. `Source_Code::Generic_Object_Pool_Safe_Guard`
+    * (important) Locking the `pool` var, instead of current instance(`this`), since different `Generic_Object_Pool_Safe_Guard` instances would have one *shared* pool.  
+1. Diagrams
+    * Updated class diagram
+
+**0.2** (May 8, 2020)  
 
 0. `Source_Code::all`
     * Update all files info headers into non javadoc(simple multiline comment) format.

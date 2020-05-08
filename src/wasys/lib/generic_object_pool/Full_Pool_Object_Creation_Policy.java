@@ -4,7 +4,7 @@
  */
 
 /*
-Full_Pool_Object_Creation_Policy
+WAsys_simple_generic_object_pool
 File: Full_Pool_Object_Creation_Policy.java
 Created on: May 7, 2020 12:35:29 AM | last edit: May 7, 2020
     @author https://github.com/911992
