@@ -71,7 +71,7 @@ Considering following steps need to be done in order to utilize this Object Pool
 ![Composition Structure Diagram](./_diagrams/object_pool_state_partial.svg)
 
 ### Sample Usage
-You may check [this repo]([)https://github.com/911992/WAsys_simple_generic_object_pool_sample_usage)
+You may check [this repo](https://github.com/911992/WAsys_simple_generic_object_pool_sample_usage)
 
 ## FAQ
 **Q0: How does `get_pool`(or `get_pool_unregistered_synced`, `get_pool_registered_synced`) function in `Pool_Context` provide an instance of `Object_Pool`?**
