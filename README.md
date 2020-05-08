@@ -2,10 +2,42 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
+*(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*
+
+**0.2** (May 8, 2020)
+0. `Source_Code::all`
+    * Update all files info headers into non javadoc(simple multiline comment) format.
+1. `Source_Code::Generic_Object_Pool`
+    * Added shutdown guard check
+    * Calling for unregister the pool instance by shutdown call
+2. `Source_Code::Generic_Object_Pool_Policy`
+    * Implemented/override the `equals(:Object):bool` method (automated by netbeans, thanks)
+    * Added `IndexOutOfBoundsException` throwable exception for constructor method signature
+3. `Source_Code::Generic_Object_Pool_Safe_Guard`
+    * Mark the `close(void):void` method synchronized
+4. `Source_Code::Object_Pool`
+    * Added `is_registered(void):bool` and `get_policy(void):Generic_Object_Pool_Policy` methods
+5. `Source_Code::Object_Pool_Type_Wrapper`
+    * Removed constructor `Object_Pool_Type_Wrapper(:Object_Factory,:bool)`
+6. `Source_Code::Pool_Context`
+    * Updated policy to find an already working pool in context, using both factory and policy vars
+    * Added `unregister_pool(:Object_Pool,:bool):void` method to allow unregister a pool from context
+    * Removed `register_pool(...):Object_Pool` methods, no more needed
+    * Added `get_pool`, `get_pool_registered_synced`, and `get_pool_unregistered_synced` method(s)
+    * Using default `Generic_Object_Pool_Policy` when null ptr is given
+    * Type check on unregister pool to make sure given arg is not a out-of-context instance
+7. `Source_Code::Pool_Context`
+    * Check for associated pool null-check before call the release method
+2. Repo
+    * Updated FAQ section in this file
+
+3. Diagrams
+    * Updated class diagram
+    * Updated activity|state diagram
 **Initial Release 0.1** (May 6, 2020)
 
 ## Requirements
-1. Java 1.7 or later
+0. Java 1.7 or later
 
 ## Class Diagram
 ![Class Diagram](./_diagrams/class_diagram_partial.svg)
@@ -40,17 +72,17 @@ Considering following steps need to be done in order to utilize this Object Pool
 You may check [this repo]([)https://github.com/911992/WAsys_simple_generic_object_pool_sample_usage)
 
 ## FAQ
-**Q0: How does `register_pool(arg_factory:Object_Factory)` function in `Pool_Context` provide an instance of `Object_Pool`?**
-A: Each `Object_Pool` is associated to given `arg_factory`. So if any previously created `Object_Pool` impl(`Generic_Object_Pool`) were created, it would the result(shared-instance), otherwise a new `Object_Pool` object will be created and return.
+**Q0: How does `get_pool`(or `get_pool_unregistered_synced`, `get_pool_registered_synced`) function in `Pool_Context` provide an instance of `Object_Pool`?**
+A: Each `Object_Pool` in context is associated to given `arg_factory` and `arg_pool_policy` args. So if any previously created `Object_Pool` impl(`Generic_Object_Pool`) were created, it would the result(shared-instance), otherwise a new `Object_Pool` object will be created and return.
 
 **Q1: What if user forgets to release an `Poolable_Object`?**
 A: Please don't. The Default `Generic_Object_Pool` implementation may not keep instances of working instances, so for any forgotten releasing objects, there will be no any mem-leak, but inconsistency for `Object_Pool`.
 
 **Q2: What if user forgets to implement the `reset_state(void):void` method on target `Poolable_Object` type?**
-A: There will be no explicite problem related to pool context, but this may bring some inconsistency for user business part.
+A: Please don't. There will be no explicite problem related to pool context/object, but this may bring some inconsistency for user business part.
 
 **Q3: What is the different(s) between obtaining an `Object_Pool` using `Pool_Context`, or `new`ing an `Object_Pool_Type_Wrapper`?**
-A: Type `Object_Pool_Type_Wrapper` will actually call `Pool_Context`. If wrapping object(`Poolable_Object` -> `<<implemented type>>`) is not a big-deal for user, you may better use `Pool_Context` way. Actually `Object_Pool_Type_Wrapper` works as a type wrapper between actual desired user type, and `Poolable_Object`
+A: Type `Object_Pool_Type_Wrapper` will actually call `Pool_Context`. If wrapping object(`Poolable_Object` -> `<<implemented type>>`) is not a big-deal for user, you may better use `Pool_Context` way(recommended). Actually `Object_Pool_Type_Wrapper` works as a type wrapper between actual desired user type, and `Poolable_Object`
 
 **Q4: What if calling for a new objects from an already shutdown `Object_Pool`?**
 A: `Object_Pool` will call the associated factory for object creation, but will not count new creation calls when a pool is in shutdown state.

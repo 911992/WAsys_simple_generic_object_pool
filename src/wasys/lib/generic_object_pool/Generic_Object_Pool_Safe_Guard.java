@@ -3,14 +3,19 @@
  * License BSD 3-Clause (https://opensource.org/licenses/BSD-3-Clause)
  */
 
-/**
- *  WAsys_simple_generic_object_pool
- *  File: Generic_Object_Pool_Safe_Guard.java
- *  Created on: May 7, 2020 5:38:31 PM | last edit: May 7, 2020
- *      @author https://github.com/911992
- * 
- *  History:
- *      initial version: 0.1(20200506)
+/*
+WAsys_simple_generic_object_pool
+File: Generic_Object_Pool_Safe_Guard.java
+Created on: May 7, 2020 5:38:31 PM | last edit: May 8, 2020
+    @author https://github.com/911992
+  
+History:
+    0.2(20200508)
+       •Implemented Object_Pool::is_registered(void):bool method
+       •Implemented Object_Pool::get_policy(void):Generic_Object_Pool_Policy method un-synchronized
+       •Mark the close(void):void method synchronized
+  
+    initial version: 0.1(20200506)
  */
 
 package wasys.lib.generic_object_pool;
@@ -66,8 +71,18 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool{
     }
 
     @Override
-    public void close() throws Exception {
-        pool.close();
+    synchronized public boolean is_registered() {
+        return pool.is_registered();
     }
     
+    @Override
+    public Generic_Object_Pool_Policy get_policy() {
+        return pool.get_policy();
+    }
+
+    @Override
+    synchronized public void close() throws Exception {
+        pool.close();
+    }
+
 }

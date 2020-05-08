@@ -3,14 +3,17 @@
  * License BSD 3-Clause (https://opensource.org/licenses/BSD-3-Clause)
  */
 
-/**
- * WAsys_simple_generic_object_pool
- * File: Poolable_Object_Adapter.java
- * Created on: May 6, 2020 10:34:03 PM | last edit: May 6, 2020
- *      @author https://github.com/911992
- * 
- * History:
- *  initial version: 0.1(20200506)
+/*
+WAsys_simple_generic_object_pool
+File: Poolable_Object_Adapter.java
+Created on: May 6, 2020 10:34:03 PM | last edit: May 8, 2020
+    @author https://github.com/911992
+  
+History:
+    0.2(20200508)
+        •Check for associated pool null-check before call the release method
+
+    initial version: 0.1(20200506)
  */
 
 package wasys.lib.generic_object_pool.api;
@@ -38,6 +41,9 @@ public abstract class Poolable_Object_Adapter implements Poolable_Object,AutoClo
 
     @Override
     final public void close() throws Exception {
+        if(pool==null){
+            return;
+        }
         pool.release_an_instance(this);
     }
     
