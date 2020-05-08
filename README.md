@@ -5,6 +5,7 @@ A very simple and generic Object Pooling pattern implementation.
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*
 
 **0.2** (May 8, 2020)
+
 0. `Source_Code::all`
     * Update all files info headers into non javadoc(simple multiline comment) format.
 1. `Source_Code::Generic_Object_Pool`
@@ -34,6 +35,7 @@ A very simple and generic Object Pooling pattern implementation.
 9. Diagrams
     * Updated class diagram
     * Updated activity|state diagram
+
 **Initial Release 0.1** (May 6, 2020)
 
 ## Requirements
