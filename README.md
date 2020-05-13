@@ -4,6 +4,10 @@ A very simple and generic Object Pooling pattern implementation.
 ## Revision History
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*
 
+**0.3.1** (May 12, 2020)  
+0. Diagrams
+    * Updated class diagram (fixed some ambiguous access specifiers)
+
 **0.3** (May 9, 2020)  
 
 0. `Source_Code::Generic_Object_Pool_Safe_Guard`
