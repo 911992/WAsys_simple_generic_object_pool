@@ -358,7 +358,7 @@ AutoClosable
       <w>90</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;70.0;10.0;70.0;90.0</additional_attributes>
   </element>
   <element>
@@ -561,6 +561,11 @@ style=wordwrap</panel_attributes>
       <h>830</h>
     </coordinates>
     <panel_attributes>*Version History*
+-
+*v0.3.2*
+(May 15, 2020)
+Author: 911992
+‣Fixed interface-interface inheritance notations(links)
 -
 *v0.3.1*
 (May 12, 2020)
@@ -873,7 +878,7 @@ bg=pink</panel_attributes>
       <w>110</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>90.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
@@ -884,7 +889,7 @@ bg=pink</panel_attributes>
       <w>100</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>

@@ -4,8 +4,11 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 
 **0.3.2** (May 15, 2020)  
 
-0. Moved the changes from main README file, in this dedicated release note one
-1. Added social media preview file
+0. Repo  
+    * Moved the changes from main README file, in this dedicated release note one
+    * Added social media preview file
+1. Diagrams  
+    * Updated class diagram (fixed interface-interface inheritance relations/links)
 
 **0.3.1** (May 12, 2020)  
 
