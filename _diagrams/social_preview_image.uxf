@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>13</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>663</x>
+      <y>598</y>
+      <w>52</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>
+bg=cyan
+transparency=90
+lt=..</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>650</x>
+      <y>455</y>
+      <w>351</w>
+      <h>221</h>
+    </coordinates>
+    <panel_attributes>Object Pool
+bg=green
+layer=-10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>429</x>
+      <y>416</y>
+      <w>286</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;200.0;10.0;200.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>403</x>
+      <y>507</y>
+      <w>117</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>416</x>
+      <y>546</y>
+      <w>52</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>377</x>
+      <y>546</y>
+      <w>117</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>429</x>
+      <y>637</y>
+      <w>286</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;200.0;50.0;200.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>728</x>
+      <y>598</y>
+      <w>52</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>
+bg=cyan
+transparency=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>793</x>
+      <y>598</y>
+      <w>52</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>
+bg=cyan
+transparency=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>858</x>
+      <y>598</y>
+      <w>52</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>
+bg=cyan
+transparency=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>923</x>
+      <y>598</y>
+      <w>52</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>
+bg=cyan
+transparency=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>676</x>
+      <y>442</y>
+      <w>39</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>lt=..</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>676</x>
+      <y>637</y>
+      <w>39</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=..</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>442</x>
+      <y>676</y>
+      <w>169</w>
+      <h>26</h>
+    </coordinates>
+    <panel_attributes>0. Get an object
+style=wordwrap
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>533</x>
+      <y>390</y>
+      <w>403</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>*Object Pool: Recycling Objects*
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>494</x>
+      <y>546</y>
+      <w>104</w>
+      <h>26</h>
+    </coordinates>
+    <panel_attributes>1. use it
+style=wordwrap
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>442</x>
+      <y>429</y>
+      <w>208</w>
+      <h>26</h>
+    </coordinates>
+    <panel_attributes>2. release(reuse) it
+style=wordwrap
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
