@@ -1,6 +1,33 @@
-**Release Note**
-repo: https://github.com/911992/WAsys_simple_generic_object_pool
-*(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*
+# WAsys_simple_generic_object_pool Release Note
+
+repo: https://github.com/911992/WAsys_simple_generic_object_pool  
+Author: [911992](https://github.com/911992)  
+*(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
+
+**0.4** (May 22, 2020)  
+
+0. Added some documentation for API-level types (it did really hurt, documenting is hard -_- )
+1. `Poolable_Object` restarting event(`reset_state(void):void`) now should be called when an instance is asked for releasing(rather than when it's acquired) regardless if the object will be added to the pool(for recycling), or it should be destroyed(e.g. pool is full)
+2. `Source_Code::Generic_Object_Pool`  
+    * Restarting(`reset_state(void):void`) a `Poolabe_Object` now is happened at the time it's release to avoid any possible memory leak(unexpected live reference), before checking if it could be added to the pool, or not.
+3. `Source_Code::Generic_Object_Pool_Policy`
+    * Chnaged the default minimum object count (`DEF_MIN_OBJ_COUNT`) to `0`
+    * Constructor now check if `max_object_count`, and/or `min_object_count` are negative, so there will be a `IndexOutOfBoundsException`
+    * Reorder(swap) the `max_object_count`, and `min_object_count` fields(and related setter, constructor members)
+    * Marking the `min_object_count`, and `full_pool_instancing_policy` as `final`
+4. `Source_Code::all`
+    * Removed the `last edit: mmm dd, yyyy` from header parts(since hard to update)
+5. Diagrams
+    * Updated object pool state diagram
+    * Updated class diagram
+6. Repo
+    * Added class diagram dedicated versioning [file](./_diagrams/class_diagram_version_history.md)
+    * Added object pool state diagram dedicated versioning [file](./_diagrams/object_pool_state_version_history.md)
+    * Removed `lib` folder(gitignore)
+    * Updated the `[README.md](./README.md)` file
+        * Added missed explination about T0 (troubleshootings)
+        * Updated the TODOs section, checked the documenting task
+        * Some code formatting fixes
 
 **0.3.2** (May 15, 2020)  
 

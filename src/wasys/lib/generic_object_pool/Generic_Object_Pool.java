@@ -6,16 +6,22 @@
  /*
 WAsys_simple_generic_object_pool
 File: Generic_Object_Pool.java
-Created on: May 6, 2020 10:09:17 PM | last edit: May 8, 2020
+Created on: May 6, 2020 10:09:17 PM
     @author https://github.com/911992
   
 History:
+    0.4(20200522)
+        • Updated the header(this comment) part
+        • Added some doc
+        • Poolable_Object.reset_state() method now is called when an instance is release(regardless if it could be backed to pool, or needs to be destroyed), to avoid any possible mem leak on object
+        • Removed calling for Poolable_Object.reset_state() when an object is selected to return (as above covers it)
+
     0.2(20200508)
-       •Added shutdown guard check(method shutdown_pool(void):void) before iterate over pooled object for destroy signal.
-       •Added registered flag var(and it's setter)
-       •Implemented Object_Pool::is_registered(void):bool method
-       •Implemented Object_Pool::get_policy(void):Generic_Object_Pool_Policy method
-       •shutdown_pool method calls pool_context class if it's registered for an unregister op
+        •Added shutdown guard check(method shutdown_pool(void):void) before iterate over pooled object for destroy signal.
+        •Added registered flag var(and it's setter)
+        •Implemented Object_Pool::is_registered(void):bool method
+        •Implemented Object_Pool::get_policy(void):Generic_Object_Pool_Policy method
+        •shutdown_pool method calls pool_context class if it's registered for an unregister op
 
    initial version: 0.1(20200506)
  */
@@ -26,6 +32,15 @@ import wasys.lib.generic_object_pool.api.Object_Factory;
 import wasys.lib.generic_object_pool.api.Poolable_Object;
 
 /**
+ * A <b>non-thread safe</b> implementation of {@link Object_Pool}. It needs a
+ * {@link Object_Factory} for creating new poolable objects, besides that
+ * depends on {@link Full_Pool_Object_Creation_Policy} type for fulled pool
+ * situation decision making. It <b>does not</b> keep object
+ * instance(references) of objects in use(gotten).
+ * <b>Note:</b> There is <b>NO</b> type check of releasing types, so make sure
+ * an object is acquired and released to the correct object pool instance
+ * <b>Note:</b> Any {@code null} instance by associated {@link  Object_Factory}
+ * <b>will not</b> be counted as a success object
  *
  * @author https://github.com/911992
  */
@@ -90,7 +105,6 @@ public class Generic_Object_Pool implements Object_Pool {
         Poolable_Object _res;
         if (pool.size() > 0) {
             _res = pool.remove(pool.size() - 1);
-            _res.reset_state();
             working_ins_count++;
         } else if (working_ins_count >= policy.getMax_object_count()) {
             switch (policy.getFull_pool_instancing_policy()) {
@@ -141,6 +155,9 @@ public class Generic_Object_Pool implements Object_Pool {
 
     @Override
     public void release_an_instance(Poolable_Object arg_instance) {
+        if (arg_instance != null) {
+            arg_instance.reset_state();
+        }
         if (working_ins_count == 0 || pool_working == false) {
             if (arg_instance != null) {
                 arg_instance.pre_destroy();

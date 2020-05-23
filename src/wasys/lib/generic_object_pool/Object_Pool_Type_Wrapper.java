@@ -3,13 +3,17 @@
  * License BSD 3-Clause (https://opensource.org/licenses/BSD-3-Clause)
  */
 
-/*
+ /*
 WAsys_simple_generic_object_pool
 File: Object_Pool_Type_Wrapper.java
-Created on: May 6, 2020 10:24:15 PM | last edit: May 8, 2020
+Created on: May 6, 2020 10:24:15 PM
     @author https://github.com/911992
  
 History:
+    0.4(20200522)
+        • Updated the header(this comment) part
+        • Added some doc
+
     0.2(20200508)
         •Implemented Object_Pool::is_registered(void):bool method
         •Implemented Object_Pool::get_policy(void):Generic_Object_Pool_Policy method
@@ -17,27 +21,44 @@ History:
   
     initial version: 0.1(20200506)
  */
-
 package wasys.lib.generic_object_pool;
 
 import wasys.lib.generic_object_pool.api.Object_Factory;
 import wasys.lib.generic_object_pool.api.Poolable_Object;
 
 /**
- * 
+ * Type-wrapper for a concreted {@link Object_Pool} instance. Generic(autobox)
+ * Proxy class for a concreted {@link Object_Pool}, by casting the desired
+ * {@link Poolable_Object} type This type has no any real pool functionality,
+ * and depends to a real/implemented pool instance By default it uses(asks for a
+ * new one from {@link Pool_Context}) the {@link Generic_Object_Pool} as the
+ * associated pool instance
+ *
  * @author https://github.com/911992
- * @param <A> 
+ * @param <A> the desired type, for easier casting
  */
-public final class Object_Pool_Type_Wrapper<A extends Poolable_Object> implements Object_Pool{
+public final class Object_Pool_Type_Wrapper<A extends Poolable_Object> implements Object_Pool {
+
     final private Object_Pool pool;
-    
-    public Object_Pool_Type_Wrapper(Object_Factory arg_obj_factory,Generic_Object_Pool_Policy arg_policy,boolean arg_thread_safe,boolean arg_register) {
-        pool = Pool_Context.get_insatcne().get_pool(arg_obj_factory,arg_policy,arg_thread_safe,arg_register);
+
+    /**
+     * Simple forward the call to {@code get_pool} method of type
+     * {@link Pool_Context}
+     *
+     * @param arg_obj_factory the factory class is needed to creating the
+     * objects
+     * @param arg_policy pool initialize and working policy
+     * @param arg_thread_safe if the pool need to be thread-safe
+     * @param arg_register if the associated(real) pool need to registered or
+     * not to default {@link Pool_Context}
+     */
+    public Object_Pool_Type_Wrapper(Object_Factory arg_obj_factory, Generic_Object_Pool_Policy arg_policy, boolean arg_thread_safe, boolean arg_register) {
+        pool = Pool_Context.get_insatcne().get_pool(arg_obj_factory, arg_policy, arg_thread_safe, arg_register);
     }
 
     @Override
     public A get_an_instance() {
-        return (A)pool.get_an_instance();
+        return (A) pool.get_an_instance();
     }
 
     @Override
@@ -83,6 +104,6 @@ public final class Object_Pool_Type_Wrapper<A extends Poolable_Object> implement
     @Override
     public void close() throws Exception {
         pool.close();
-    } 
-    
+    }
+
 }
