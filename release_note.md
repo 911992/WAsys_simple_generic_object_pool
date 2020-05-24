@@ -4,6 +4,14 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.1** (May 24, 2020)  
+
+1. `Source_Code::Generic_Object_Pool_Policy`  
+    * Marking the `DEF_MAX_OBJ_COUNT`, `DEF_MIN_OBJ_COUNT`, `DEF_OBJ_CREATION_POLICY`, and `DEF_INS` as `final`  
+0. Diagrams  
+    * Updated the class diagram (versioning file [here](./_diagrams/class_diagram_version_history.md))  
+
+
 **0.4** (May 22, 2020)  
 
 0. Added some documentation for API-level types (it did really hurt, documenting is hard -_- )

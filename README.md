@@ -2,7 +2,7 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
-Latest: v0.4 (May 22, 2020)  
+Latest: v0.4.1 (May 22, 2020)  
 Please refer to [release_note.md](./release_note.md) file  
 
 ## Requirements

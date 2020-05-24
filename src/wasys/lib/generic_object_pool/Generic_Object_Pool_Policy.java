@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:43:13 PM
     @author https://github.com/911992
   
 History:
+    0.4.1(20200524)
+        • Marking the static DEF_MAX_OBJ_COUNT, DEF_MIN_OBJ_COUNT, DEF_OBJ_CREATION_POLICY, and DEF_INS as final
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc
@@ -33,9 +36,9 @@ package wasys.lib.generic_object_pool;
  */
 public class Generic_Object_Pool_Policy {
 
-    public static int DEF_MAX_OBJ_COUNT = 64;
-    public static int DEF_MIN_OBJ_COUNT = 0;
-    public static Full_Pool_Object_Creation_Policy DEF_OBJ_CREATION_POLICY = Full_Pool_Object_Creation_Policy.Create_New_No_Pooling;
+    public static final int DEF_MAX_OBJ_COUNT = 64;
+    public static final int DEF_MIN_OBJ_COUNT = 0;
+    public static final Full_Pool_Object_Creation_Policy DEF_OBJ_CREATION_POLICY = Full_Pool_Object_Creation_Policy.Create_New_No_Pooling;
     public static final Generic_Object_Pool_Policy DEF_INS = new Generic_Object_Pool_Policy(DEF_MIN_OBJ_COUNT, DEF_MAX_OBJ_COUNT, DEF_OBJ_CREATION_POLICY);
 
     final private int min_object_count;

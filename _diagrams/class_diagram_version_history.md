@@ -3,6 +3,12 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 file: [class_diagram](./_diagrams/class_diagram.svg)  
 Author: [911992](https://github.com/911992)  
 
+**v0.4.1** (May 22, 2020)
+
+* Marking the `DEF_MAX_OBJ_COUNT`, `DEF_MIN_OBJ_COUNT`, `DEF_OBJ_CREATION_POLICY`, and `DEF_INS` as `{final}` in class `Generic_Object_Pool_Policy`
+
+<hr/>
+
 **v0.4** (May 22, 2020)
 
 * Created this file(dedicated versioning file for [class diagram](./_diagrams/class_diagram.uxf))
