@@ -53,7 +53,7 @@ bg=green</panel_attributes>
     <coordinates>
       <x>894</x>
       <y>774</y>
-      <w>72</w>
+      <w>66</w>
       <h>66</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -124,7 +124,7 @@ bg=#ffff99</panel_attributes>
     <coordinates>
       <x>438</x>
       <y>564</y>
-      <w>60</w>
+      <w>54</w>
       <h>162</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
@@ -148,7 +148,7 @@ bg=#ffff99</panel_attributes>
     <coordinates>
       <x>354</x>
       <y>564</y>
-      <w>72</w>
+      <w>66</w>
       <h>162</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -190,7 +190,7 @@ Generic_Object_Pool_Policy
 _+DEF_MAX_OBJ_COUNT:int := 64 {final}_
 _+DEF_MIN_OBJ_COUNT:int := 0 {final}_
 _+DEF_OBJ_CREATION_POLICY:Full_Pool_Object_Creation_Policy := Create_New_No_Pooling {final}_
-_+DEF_INS:Generic_Object_Pool_Policy=new Generic_Object_Pool_Policy(DEF_MAX_OBJ_COUNT,DEF_MIN_OBJ_COUNT,DEF_OBJ_CREATION_POLICY) {final}_
+_+DEF_INS:Generic_Object_Pool_Policy=new Generic_Object_Pool_Policy(DEF_MAX_OBJ_COUNT,DEF_MIN_OBJ_COUNT,DEF_OBJ_CREATION_POLICY) {final_
 +min_object_count:int {final}
 +max_object_count:int {public-readonly} {package-settable}
 -full_pool_instancing_policy:Full_Pool_Object_Creation_Policy {final}
@@ -366,7 +366,7 @@ AutoClosable
     <coordinates>
       <x>378</x>
       <y>366</y>
-      <w>72</w>
+      <w>66</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
@@ -378,7 +378,7 @@ AutoClosable
     <coordinates>
       <x>474</x>
       <y>366</y>
-      <w>54</w>
+      <w>48</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;.

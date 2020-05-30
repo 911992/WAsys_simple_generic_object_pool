@@ -290,7 +290,7 @@
       ><text x="5" font-size="16px" y="82.7812" text-decoration="underline" clip-path="url(#clipPath11)" font-family="monospace" stroke="none" xml:space="preserve"
       >+DEF_OBJ_CREATION_POLICY:Full_Pool_Object_Creation_Policy := Create_New_No_Pooling {final}</text
       ><text x="5" font-size="16px" y="97.9375" text-decoration="underline" clip-path="url(#clipPath11)" font-family="monospace" stroke="none" xml:space="preserve"
-      >+DEF_INS:Generic_Object_Pool_Policy=new Generic_Object_Pool_Policy(DEF_MAX_OBJ_COUNT,DEF_MIN_OBJ_COUNT,DEF_OBJ_CREATION_POLICY) {final}</text
+      >+DEF_INS:Generic_Object_Pool_Policy=new Generic_Object_Pool_Policy(DEF_MAX_OBJ_COUNT,DEF_MIN_OBJ_COUNT,DEF_OBJ_CREATION_POLICY) {final</text
       ><text x="5" font-size="16px" y="113.0938" clip-path="url(#clipPath11)" font-family="monospace" stroke="none" xml:space="preserve"
       >+min_object_count:int {final}</text
       ><text x="5" font-size="16px" y="128.25" clip-path="url(#clipPath11)" font-family="monospace" stroke="none" xml:space="preserve"
