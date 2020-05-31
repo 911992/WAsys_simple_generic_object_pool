@@ -2,7 +2,7 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
-Latest: v0.4.3 (Jun 1, 2020)  
+Latest: v0.4.4 (Jun 1, 2020)
 Please refer to [release_note.md](./release_note.md) file  
 
 ## Requirements
@@ -33,6 +33,21 @@ Considering following steps need to be done in order to utilize this Object Pool
 2. Implement interface `Object_Factory` and its `create_object(void):Poolable_Object`. Instance a non-`null` object, and return. **NOTE:** Objetc pool may not count any `null` instance by provided `Object_Factory`
 3. (optional, but recommended)Prepare an insatnce of `Generic_Object_Pool_Policy` that fits your requirements about object pooling behaivior and state.
 4. Ask for an `Object_Pool` instance from class `Pool_Context`, or instancing an `Object_Pool_Type_Wrapper` class.
+
+### Maven Config (on github)
+![Maven Package](https://github.com/911992/WAsys_simple_generic_object_pool/workflows/Maven%20Package/badge.svg)  
+Simply add the the following `depedency` to your `pom.xml` maven file.  
+
+```xml
+<dependency>
+  <groupId>com.github.911992</groupId>
+  <artifactId>WAsys_simple_generic_object_pool</artifactId>
+  <version>0.4.3</version>
+</dependency>
+```
+
+<small><i>(Note: I'm still trying to figure out to make the apache central maven happened, hope make it soon)</i></small>
+
 
 ## `Generic_Object_Pool` Activity | State Diagram
 ![Composition Structure Diagram](./_diagrams/object_pool_state_partial.svg)
