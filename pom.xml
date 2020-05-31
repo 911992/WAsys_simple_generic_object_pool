@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2020, https://github.com/911992 All rights reserved.
+License BSD 3-Clause (https://opensource.org/licenses/BSD-3-Clause)
+-->
+
+<!--<![CDATA[
+
+WAsys_simple_generic_object_pool
+File: pom.xml.xml
+Created on: May 31, 2020 10:38:11 PM
+    @author https://github.com/911992
+ 
+History:
+    initial version: 0.1(20200531)
+
+]]>-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>wasys.lib</groupId>
+    <artifactId>WAsys_simple_generic_object_pool</artifactId>
+    <version>0.4.2</version>
+    <packaging>jar</packaging>
+    <description>Simple java object pooling lib (WAsys_simple_generic_object_pool)</description>
+    <url>https://github.com/911992/WAsys_simple_generic_object_pool</url>
+    <licenses>
+        <license>
+            <name>The 3-Clause BSD License</name>
+            <url>https://opensource.org/licenses/BSD-3-Clause</url>
+        </license>
+    </licenses>
+  
+    <scm>   
+        <connection>scm:git:git://github.com/911992/WAsys_simple_generic_object_pool.git</connection>   
+        <developerConnection>scm:git:ssh://github.com/911992/WAsys_simple_generic_object_pool.git</developerConnection>   
+        <url>https://github.com/911992/WAsys_simple_generic_object_pool/tree/master</url> 
+    </scm>
+
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <developers>
+        <developer>
+            <name>911992</name>
+            <url>https://github.com/911992</url>
+        </developer>
+    </developers>
+    
+    <!--    <distributionManagement>
+        <snapshotRepository>   
+            <id>ossrh</id>        
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url> 
+        </snapshotRepository> 
+        <repository> 
+            <id>ossrh</id> 
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url> 
+        </repository> 
+    </distributionManagement>-->
+    
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/911992/WAsys_simple_generic_object_pool</url>
+        </repository>
+    </distributionManagement>
+        
+</project>

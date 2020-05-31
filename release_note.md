@@ -4,11 +4,20 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.2** (Jun 1, 2020)  
+
+0. Trying to make maven using github package happened
+1. Repo
+    * Added `pom.xml` file(please work)
+    * Added `maven-publish.yml` file(please work too)
+
+<br/>
+
 **0.4.1** (May 24, 2020)  
 
-1. `Source_Code::Generic_Object_Pool_Policy`  
+0. `Source_Code::Generic_Object_Pool_Policy`  
     * Marking the `DEF_MAX_OBJ_COUNT`, `DEF_MIN_OBJ_COUNT`, `DEF_OBJ_CREATION_POLICY`, and `DEF_INS` as `final`  
-0. Diagrams  
+1. Diagrams  
     * Updated the class diagram (versioning file [here](./_diagrams/class_diagram_version_history.md))  
 
 
