@@ -4,6 +4,15 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.3** (Jun 1, 2020)  
+
+0. Still trying to make maven using github package happened
+1. Repo
+    * Updated `pom.xml` file(please work, the central maven conf still looks confusing, or better I'm stupid `-_-`)
+        * Changed he artifact groupid to `com.github.911992` from `wasys.lib` (hope it works now)
+
+<hr/>
+
 **0.4.2** (Jun 1, 2020)  
 
 0. Trying to make maven using github package happened
@@ -11,7 +20,7 @@ Author: [911992](https://github.com/911992)
     * Added `pom.xml` file(please work)
     * Added `maven-publish.yml` file(please work too)
 
-<br/>
+<hr/>
 
 **0.4.1** (May 24, 2020)  
 
