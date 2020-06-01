@@ -10,6 +10,9 @@ Created on: May 7, 2020 12:35:29 AM
     @author https://github.com/911992
  
 History:
+    0.4.5(20200601)
+        • Fixed some issues related to javadoc
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc
@@ -18,11 +21,15 @@ History:
  */
 package wasys.lib.generic_object_pool;
 
+import wasys.lib.generic_object_pool.api.Poolable_Object;
+
 /**
- * Specifies the policy need to applied, when pool({@link Object_Pool}) has no
- * more object to provide. By term Full Pool, it means all created objects are
+ * Specifies the policy need to applied, when pool {@link Object_Pool} has no
+ * more object to provide.
+ * <p>
+ * By term Full Pool, it means all created objects are
  * in use
- *
+ *</p>
  * @author https://github.com/911992
  */
 public enum Full_Pool_Object_Creation_Policy {
@@ -46,8 +53,10 @@ public enum Full_Pool_Object_Creation_Policy {
      * In multi-thread env, forces the pool to blocks the current thread, until
      * another thread releases an object, so the object could be used for the
      * thread-waiting request.
+     * <p>
      * <b>Note:</b> make sure the target {@link Object_Pool} instance is a
      * <u>thread-safe</u> one.
+     * </p>
      */
     Wait_Till_One_Free
 }

@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:34:03 PM
     @author https://github.com/911992
   
 History:
+    0.4.5(20200601)
+        • Fixed some issues related to javadoc
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc
@@ -47,10 +50,10 @@ public abstract class Poolable_Object_Adapter implements Poolable_Object, AutoCl
     }
 
     /**
-     * Works as setter method for {@code pool} field. Could be override, but
-     * why?
+     * Works as setter method for {@code pool} field.
      *
-     * @param arg_pool
+     * @param arg_pool the {@link Object_Pool} instance that performs the
+     * pool(house) for this object.
      */
     @Override
     public void set_pool(Object_Pool arg_pool) {
@@ -63,7 +66,7 @@ public abstract class Poolable_Object_Adapter implements Poolable_Object, AutoCl
      * would be called automatically by JVM, when this object has acquired using
      * a {@code try-with-resources}
      *
-     * @throws Exception
+     * @throws Exception any generic/common exception about releasing the object
      */
     @Override
     final public void close() throws Exception {

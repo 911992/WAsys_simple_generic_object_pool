@@ -4,13 +4,30 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.5** (Jun 1, 2020)  
+
+0. Dropping github action(sorry github), to perform the deploy in-house using maven, now it works **( perfect! (⌐■_■) )**
+1. `Source_Code:All`
+    * Fixed issues related to documentation that failed `javadoc` op
+    * Reformated the documentation
+2. Repo
+    * Added maven output `target` folder to `.gitignore`
+    * Updated and deployed the `v0.4.5` artifcat to central repository (hooray!, thanks oss, and apache, wonderful)
+    * Updated `README.md` file
+        * Removed the badge of github about releases
+        * Updated the maven dependency version to `0.4.5` from `0.4.4`
+    * Updated the `pom.xml` file
+        * It follows the recommended layout/conf as OSS recommended (may not be compatible with github action)
+    * Commented out the `maven-publish` file, to disable the github action
+
+<hr/>
+
 **0.4.4** (Jun 1, 2020)  
 
 0. Dropping github maven repo, instead going with apache central maven repo (great!, please work)
 1. `File::pom.xml` changed the dist mgr from github to maven central/oss
 2. Repo
     * Moved source files to `src/main/java` from `src` to make it compatible with maven project layout
-3. Repo
     * Added `LICENSE.txt` and `README.txt` file for maven project
 
 <hr/>

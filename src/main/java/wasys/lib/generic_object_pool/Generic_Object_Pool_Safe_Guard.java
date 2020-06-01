@@ -10,6 +10,9 @@ Created on: May 7, 2020 5:38:31 PM
     @author https://github.com/911992
   
 History:
+    0.4.5(20200601)
+        • Fixed some issues related to javadoc
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc
@@ -30,16 +33,19 @@ import wasys.lib.generic_object_pool.api.Poolable_Object;
 
 /**
  * Proxy type for a concreted {@link Object_Pool}, makes the associated real
- * {@link Object_Pool} thread-safe. This class implements the
+ * {@link Object_Pool} thread-safe.
+ * <p>This class implements the
  * {@link Object_Pool}, but it has <b>no</b> real object pooling functionality,
  * instead it simple forwards all related signals to the associated real
- * {@link Object_Pool} The reason for this class is to make a concreted non
- * thread-safe {@link Object_Pool}, thread-safe. By initializing, the associated
- * the {@link Object_Pool} should be provided.
- * <b>Important Note:</b> thread-safety is done @{code synchronize}ing the
+ * {@link Object_Pool}</p>
+ * <p>The reason for this class is to make a concreted non
+ * thread-safe {@link Object_Pool}, thread-safe.</p>
+ * <p>By initializing, the associated
+ * the {@link Object_Pool} should be provided.</p>
+ * <p><b>Important Note:</b> thread-safety is done @{code synchronize}ing the
  * associated the {@link Object_Pool}, rather than @{code synchronized methods},
  * sine a shared {@link Object_Pool} could be used for different instances of
- * this type.
+ * this type.</p>
  *
  * @author https://github.com/911992
  */

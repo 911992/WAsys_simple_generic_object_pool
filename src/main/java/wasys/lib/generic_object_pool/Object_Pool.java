@@ -10,6 +10,9 @@ Created on: May 7, 2020 3:01:55 AM
     @author https://github.com/911992
   
 History:
+    0.4.5(20200601)
+        • Fixed some issues related to javadoc
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc
@@ -33,38 +36,44 @@ public interface Object_Pool extends AutoCloseable {
 
     /**
      * Returns an object by either from the pool(already created), or asks the
-     * associated @{link Object_Factory} to create one. If the pool is full(no
+     * associated @{link Object_Factory} to create one.
+     * <p>If the pool is full(no
      * more objects ready to return, or cannot create new ones(limit)), then
-     * pool may decide to either one of the followings • Return {@code null} •
-     * Create a new object, but not extend the pool maximum obj numbers • Create
-     * a new object, also increase the pool maximum obj numbers by one(or some)
-     * • locks the thread until an object gets released and ready for reusing
-     *
+     * pool may decide to either one of the followings</p>
+     * <ul>
+     * <li>Return {@code null}</li>
+     * <li>Create a new object, but not extend the pool maximum obj numbers</li>
+     * <li>Create a new object, also increase the pool maximum obj numbers by one(or some)</li>
+     * <li>locks the thread until an object gets released and ready for reusing</li>
+     * </ul>
+     * <p>
      * The above policy may be applied strictly(hard-coded) or customizable by
-     * the user(impl-dependent) The {@code Pool_Object} factory/context may asks
+     * the user(impl-dependent, please see {@link Full_Pool_Object_Creation_Policy})</p>
+     * <p>The {@code Pool_Object} factory/context may asks
      * user to specify the full pool policy by providing an instance of
      * {@link Full_Pool_Object_Creation_Policy}(or equivalent) The return value
-     * may be created by either an object factory, or the pool itself. Pool may
-     * or may not keep track of working objects.
-     * <b>Note:</b> pool may or <u>may not</u> check type of releasing
+     * may be created by either an object factory, or the pool itself.</p> 
+     * <p>Pool may
+     * or may not keep track of working objects.</p>
+     * <p><b>Note:</b> pool may or <u>may not</u> check type of releasing
      * objects(back to pool), so make sure to release an object from the same
-     * pool it was acquired
+     * pool it was acquired</p>
      *
-     * @return a {@link Poolable_Object} instance {
-     * @see Generic_Object_Pool} {
-     * @see Full_Pool_Object_Creation_Policy}
+     * @return a {@link Poolable_Object} instance 
      */
     public Poolable_Object get_an_instance();
 
     /**
-     * Releases the given instance. Releases the given instance of
+     * Releases the given instance. 
+     * <p>Releases the given instance of
      * {@link Poolable_Object} by restarting the object state (using calling
      * {@code reset_state()}), and then adds the object to the pool if
-     * applicable(when there is some empty index for it) If there is no room for
+     * applicable(when there is some empty index for it)</p> 
+     * <p>If there is no room for
      * the released object, pool may signal the {@code pre_destroy()} to the
-     * {@link Poolable_Object}, and ignore to add it to its pool.
+     * {@link Poolable_Object}, and ignore to add it to its pool.</p>
      *
-     * @param arg_instance
+     * @param arg_instance the instance needed to be released
      */
     public void release_an_instance(Poolable_Object arg_instance);
 
@@ -97,9 +106,10 @@ public interface Object_Pool extends AutoCloseable {
     public boolean pool_is_working();
 
     /**
-     * @return if instance of this pool has added to the context(any), if yes,
+     * Indicates if the current instance has registered, or not.
+     * <p>Please see {@link Pool_Context}</p>
+     * @return if instance of this pool has added to the context(any), if {@code true},
      * so the same reference could be grabbed from the context somewhere else.
-     * @see Pool_Context
      */
     public boolean is_registered();
 

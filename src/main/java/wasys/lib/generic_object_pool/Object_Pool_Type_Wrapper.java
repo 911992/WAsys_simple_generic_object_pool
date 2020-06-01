@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:24:15 PM
     @author https://github.com/911992
  
 History:
+    0.4.5(20200601)
+        • Fixed some issues related to javadoc
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc
@@ -27,12 +30,14 @@ import wasys.lib.generic_object_pool.api.Object_Factory;
 import wasys.lib.generic_object_pool.api.Poolable_Object;
 
 /**
- * Type-wrapper for a concreted {@link Object_Pool} instance. Generic(autobox)
- * Proxy class for a concreted {@link Object_Pool}, by casting the desired
+ * Type-wrapper for a concreted {@link Object_Pool} instance.
+ * <p>Generic(autobox)
+ * proxy class for a concreted {@link Object_Pool}, by casting the desired
  * {@link Poolable_Object} type This type has no any real pool functionality,
- * and depends to a real/implemented pool instance By default it uses(asks for a
+ * and depends to a real/implemented pool instance</p>
+ * <p>By default it uses(asks for a
  * new one from {@link Pool_Context}) the {@link Generic_Object_Pool} as the
- * associated pool instance
+ * associated pool instance</p>
  *
  * @author https://github.com/911992
  * @param <A> the desired type, for easier casting

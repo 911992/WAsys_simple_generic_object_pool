@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:09:17 PM
     @author https://github.com/911992
   
 History:
+    0.4.5(20200601)
+        • Fixed some issues related to javadoc
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc
@@ -32,15 +35,17 @@ import wasys.lib.generic_object_pool.api.Object_Factory;
 import wasys.lib.generic_object_pool.api.Poolable_Object;
 
 /**
- * A <b>non-thread safe</b> implementation of {@link Object_Pool}. It needs a
+ * A <b>non-thread safe</b> implementation of {@link Object_Pool}.
+ * <p>It needs a
  * {@link Object_Factory} for creating new poolable objects, besides that
  * depends on {@link Full_Pool_Object_Creation_Policy} type for fulled pool
- * situation decision making. It <b>does not</b> keep object
- * instance(references) of objects in use(gotten).
- * <b>Note:</b> There is <b>NO</b> type check of releasing types, so make sure
- * an object is acquired and released to the correct object pool instance
- * <b>Note:</b> Any {@code null} instance by associated {@link  Object_Factory}
- * <b>will not</b> be counted as a success object
+ * situation decision making.</p>
+ * <p>It <b>does not</b> keep object
+ * instance(references) of objects in use(gotten).</p>
+ * <p><b>Note:</b> There is <b>NO</b> type check of releasing types, so make sure
+ * an object is acquired and released to the correct object pool instance</p>
+ * <p><b>Note:</b> Any {@code null} instance by associated {@link  Object_Factory}
+ * <b>will not</b> be counted as a success object</p>
  *
  * @author https://github.com/911992
  */

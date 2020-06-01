@@ -29,32 +29,34 @@ public interface Poolable_Object {
 
     /**
      * Called by the {@link Object_Pool} when new instance of the object is
-     * created by {@link Object_Factory}
+     * created by {@link Object_Factory}.
      */
     public void post_create();
 
     /**
      * Called by the {@link Object_Pool} when object is no more required to be
-     * part of the pool. This could be because of pool is in shutdown(close)
+     * part of the pool.
+     * <p>This could be because of pool is in shutdown(close)
      * mode, or a released object is no more valid to be backed to the pool(e.g.
-     * pool is full)
+     * pool is full)</p>
      */
     public void pre_destroy();
 
     /**
      * Called by the {@link Object_Pool} when this({@link Poolable_Object})
-     * object has been asked to be released(back-to-the-pool), and could be
-     * added(or reused immediately) by the associated {@link Object_Pool}
+     * object has been asked to be released(back-to-the-pool).
      */
     public void reset_state();
 
     /**
      * Called by the {@link Object_Pool} <b>probably once</b>, to introduce the
-     * associated {@link Object_Pool} to this instance. This helps the
+     * associated {@link Object_Pool} to this instance.
+     * <p>This helps the
      * user/this-type to hold the given object pool, for releasing this instance
-     * by associated object pool instance. Given value could be ignored, but
+     * by associated object pool instance.</p>
+     * <p>Given value could be ignored, but
      * mind this object must be released to the correct/related
-     * {@link Object_Pool}
+     * {@link Object_Pool}</p>
      *
      * @param arg_pool the {@link Object_Pool} instance that performs the
      * pool(house) for this object.

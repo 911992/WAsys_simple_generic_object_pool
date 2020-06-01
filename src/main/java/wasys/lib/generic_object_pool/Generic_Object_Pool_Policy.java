@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:43:13 PM
     @author https://github.com/911992
   
 History:
+    0.4.5(20200601)
+        • Fixed some issues related to javadoc
+
     0.4.1(20200524)
         • Marking the static DEF_MAX_OBJ_COUNT, DEF_MIN_OBJ_COUNT, DEF_OBJ_CREATION_POLICY, and DEF_INS as final
 
@@ -46,7 +49,7 @@ public class Generic_Object_Pool_Policy {
     final private Full_Pool_Object_Creation_Policy full_pool_instancing_policy;
 
     /**
-     *
+     * Default constructor.
      * @param arg_max_object_count the maximum allowed objects could be created
      * by the object pool
      * @param arg_min_object_count the minimum size of objects need to created
@@ -115,10 +118,7 @@ public class Generic_Object_Pool_Policy {
         if (this.min_object_count != other.min_object_count) {
             return false;
         }
-        if (this.full_pool_instancing_policy != other.full_pool_instancing_policy) {
-            return false;
-        }
-        return true;
+        return this.full_pool_instancing_policy == other.full_pool_instancing_policy;
     }
 
 }

@@ -2,7 +2,7 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
-Latest: v0.4.4 (Jun 1, 2020)  
+Latest: v0.4.5 (Jun 1, 2020)  
 Please refer to [release_note.md](./release_note.md) file  
 
 ## Requirements
@@ -35,18 +35,17 @@ Considering following steps need to be done in order to utilize this Object Pool
 4. Ask for an `Object_Pool` instance from class `Pool_Context`, or instancing an `Object_Pool_Type_Wrapper` class.
 
 ### Maven Config (on github)
-![Publish package to the Maven Central Repository](https://github.com/911992/WAsys_simple_generic_object_pool/workflows/Publish%20package%20to%20the%20Maven%20Central%20Repository/badge.svg)  
 Simply add the the following `depedency` to your `pom.xml` maven file.  
 
 ```xml
 <dependency>
   <groupId>com.github.911992</groupId>
   <artifactId>WAsys_simple_generic_object_pool</artifactId>
-  <version>0.4.4</version>
+  <version>0.4.5</version>
 </dependency>
 ```
 
-*Not a maven project? you may also find the releases artifacts [here](https://github.com/911992/WAsys_simple_generic_object_pool/releases)*
+*Not a maven project? this project is ant compatible too*
 
 
 ## `Generic_Object_Pool` Activity | State Diagram
