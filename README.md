@@ -46,6 +46,8 @@ Simply add the the following `depedency` to your `pom.xml` maven file.
 </dependency>
 ```
 
+*Not a maven project? you may also find the releases artifacts [here](https://github.com/911992/WAsys_simple_generic_object_pool/releases)*
+
 
 ## `Generic_Object_Pool` Activity | State Diagram
 ![Composition Structure Diagram](./_diagrams/object_pool_state_partial.svg)

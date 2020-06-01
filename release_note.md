@@ -10,6 +10,8 @@ Author: [911992](https://github.com/911992)
 1. `File::pom.xml` changed the dist mgr from github to maven central/oss
 2. Repo
     * Moved source files to `src/main/java` from `src` to make it compatible with maven project layout
+3. Repo
+    * Added `LICENSE.txt` and `README.txt` file for maven project
 
 <hr/>
 
@@ -22,6 +24,7 @@ Author: [911992](https://github.com/911992)
     * Updated `pom.xml` file(please work, the central maven conf still looks confusing, or better I'm stupid `-_-`)
         * Changed he artifact groupid to `com.github.911992` from `wasys.lib` (hope it works now)
         * Changed the event on new releases, ratehr than any `push`
+
 
 <hr/>
 
