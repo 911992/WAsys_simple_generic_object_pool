@@ -4,6 +4,13 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.4** (Jun 1, 2020)  
+0. Dropping github maven repo, instead going with apache central maven repo (great!, pelase work)
+1. `File::pom.xml` changed the dist mgr from github to maven central/oss
+    
+
+<hr/>
+
 **0.4.3** (Jun 1, 2020)  
 
 0. Still trying to make maven using github package happened

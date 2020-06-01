@@ -7,12 +7,16 @@ License BSD 3-Clause (https://opensource.org/licenses/BSD-3-Clause)
 <!--<![CDATA[
 
 WAsys_simple_generic_object_pool
-File: pom.xml.xml
+File: pom.xml
 Created on: May 31, 2020 10:38:11 PM
     @author https://github.com/911992
  
 History:
-    initial version: 0.1(20200531)
+    0.4.4(20200601)
+        • Skip github repo for central maven(thanks oss)
+        • Keeping the artifact version as 0.4.3
+    
+    initial version: 0.4.3(20200601)
 
 ]]>-->
 
@@ -49,22 +53,15 @@ History:
         </developer>
     </developers>
     
-<!--        <distributionManagement>
+    <distributionManagement>
         <snapshotRepository>   
             <id>ossrh</id>        
             <url>https://oss.sonatype.org/content/repositories/snapshots</url> 
-        </snapshotRepository> 
-        <repository> 
-            <id>ossrh</id> 
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url> 
-        </repository> 
-    </distributionManagement>-->
-    
-    <distributionManagement>
+        </snapshotRepository>
         <repository>
-            <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/911992/WAsys_simple_generic_object_pool</url>
+            <id>ossrh</id>
+            <name>Central Repository OSSRH</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
         
