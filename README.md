@@ -35,18 +35,16 @@ Considering following steps need to be done in order to utilize this Object Pool
 4. Ask for an `Object_Pool` instance from class `Pool_Context`, or instancing an `Object_Pool_Type_Wrapper` class.
 
 ### Maven Config (on github)
-![Maven Package](https://github.com/911992/WAsys_simple_generic_object_pool/workflows/Maven%20Package/badge.svg)  
+![Publish package to the Maven Central Repository](https://github.com/911992/WAsys_simple_generic_object_pool/workflows/Publish%20package%20to%20the%20Maven%20Central%20Repository/badge.svg)  
 Simply add the the following `depedency` to your `pom.xml` maven file.  
 
 ```xml
 <dependency>
   <groupId>com.github.911992</groupId>
   <artifactId>WAsys_simple_generic_object_pool</artifactId>
-  <version>0.4.3</version>
+  <version>0.4.4</version>
 </dependency>
 ```
-
-<small><i>(Note: I'm still trying to figure out to make the apache central maven happened, hope make it soon)</i></small>
 
 
 ## `Generic_Object_Pool` Activity | State Diagram
