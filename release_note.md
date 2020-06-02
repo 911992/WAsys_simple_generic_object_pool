@@ -4,6 +4,30 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.6** (Jun 2, 2020)  
+
+0. **Bug fix:** `Object_Pool.shutdown()` method now should notify/unlock any blocked thread(due to wait for a pool instance) now.
+1. `Source_Code::Generic_Object_Pool`
+    * Using `ArrayList`(as a non-`synchronized` context) instaed of `Vector`, since thread-safety should not be considered at this level.
+    * **Bug fix:** `shutdown_pool()` method now `notifyAll()` the current instance(when required), if any blocked-thread(s) are waiting for an object.
+    * Renamed `null_run` to `NULL_RUN`
+    * Field `null_run`(`NULL_RUN`) is `static` now
+    * Added more documentation
+2. `Source_Code::Pool_Context`
+    * Using `ArrayList`, instead of `Vector` for local `ctx` field
+3. `Source_Code::all`
+    * Updated and tweaked documentation for almost al lsource codes, except `Full_Pool_Object_Creation_Policy`, `Poolable_Object`, and `Poolable_Object_Adapter`
+4. Repo
+    * updated `pom.xml` maven conf file
+        * Removed redundant conf for signing plugin
+        * Changed the auto release by close to `false` for sonatype plugin
+    * Updated `README.md`
+        * Changed maven repo version to `0.4.6`
+5. Diagrams  
+    * Updated the class diagram (versioning file [here](./_diagrams/class_diagram_version_history.md))
+
+<hr/>
+
 **0.4.5** (Jun 1, 2020)  
 
 0. Dropping github action(sorry github), to perform the deploy in-house using maven, now it works **( perfect! (⌐■_■) )**

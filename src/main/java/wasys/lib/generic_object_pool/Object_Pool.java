@@ -10,6 +10,9 @@ Created on: May 7, 2020 3:01:55 AM
     @author https://github.com/911992
   
 History:
+    0.4.6(20200602)
+        • Updated the documentation
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -37,41 +40,62 @@ public interface Object_Pool extends AutoCloseable {
     /**
      * Returns an object by either from the pool(already created), or asks the
      * associated @{link Object_Factory} to create one.
-     * <p>If the pool is full(no
-     * more objects ready to return, or cannot create new ones(limit)), then
-     * pool may decide to either one of the followings</p>
+     * <p>
+     * If the pool is full(no more objects ready to return, or cannot create new
+     * ones(limit)), then pool may decide to either one of the followings</p>
      * <ul>
      * <li>Return {@code null}</li>
      * <li>Create a new object, but not extend the pool maximum obj numbers</li>
-     * <li>Create a new object, also increase the pool maximum obj numbers by one(or some)</li>
-     * <li>locks the thread until an object gets released and ready for reusing</li>
+     * <li>Create a new object, also increase the pool maximum obj numbers by
+     * one(or some)</li>
+     * <li>locks the thread until an object gets released and ready for
+     * reusing</li>
      * </ul>
      * <p>
      * The above policy may be applied strictly(hard-coded) or customizable by
-     * the user(impl-dependent, please see {@link Full_Pool_Object_Creation_Policy})</p>
-     * <p>The {@code Pool_Object} factory/context may asks
-     * user to specify the full pool policy by providing an instance of
+     * the user(impl-dependent, please see
+     * {@link Full_Pool_Object_Creation_Policy})</p>
+     * <p>
+     * The {@code Pool_Object} factory/context may asks user to specify the full
+     * pool policy by providing an instance of
      * {@link Full_Pool_Object_Creation_Policy}(or equivalent) The return value
-     * may be created by either an object factory, or the pool itself.</p> 
-     * <p>Pool may
-     * or may not keep track of working objects.</p>
-     * <p><b>Note:</b> pool may or <u>may not</u> check type of releasing
+     * may be created by either an object factory, or the pool itself.</p>
+     * <p>
+     * Pool may or may not keep track of working objects.</p>
+     * <p>
+     * <b>Note:</b> pool may or <u>may not</u> check type of releasing
      * objects(back to pool), so make sure to release an object from the same
      * pool it was acquired</p>
      *
-     * @return a {@link Poolable_Object} instance 
+     * @return a {@link Poolable_Object} instance
      */
     public Poolable_Object get_an_instance();
 
     /**
-     * Releases the given instance. 
-     * <p>Releases the given instance of
-     * {@link Poolable_Object} by restarting the object state (using calling
-     * {@code reset_state()}), and then adds the object to the pool if
-     * applicable(when there is some empty index for it)</p> 
-     * <p>If there is no room for
-     * the released object, pool may signal the {@code pre_destroy()} to the
-     * {@link Poolable_Object}, and ignore to add it to its pool.</p>
+     * Releases the given instance.
+     * <p>
+     * Releases the given instance of {@link Poolable_Object} by restarting the
+     * object state (using calling {@code reset_state()}), and then adds the
+     * object to the pool if applicable(when there is some empty index for
+     * it)</p>
+     * <p>
+     * If there is no room for the released object, pool may signal the
+     * {@code pre_destroy()} to the {@link Poolable_Object}, and ignore to add
+     * it to its pool.</p>
+     * <p>
+     * <b>Important note:</b> Releasing a {@link Poolable_Object} more than
+     * once(while it's already released) might issue an inconsistency to current
+     * pool instance(impl-dependent).
+     * </p>
+     * <p>
+     * By default, pool should not check if a releasing instance really belongs
+     * to this pool, or it has already in idle state and in pool, so please make
+     * sure to not release an instance when it's in a idle state, or to a wrong
+     * pool.
+     * <br>
+     * But also mind this is also possible that the implemented pool checks for
+     * such data state.
+     * </p>
      *
      * @param arg_instance the instance needed to be released
      */
@@ -95,8 +119,18 @@ public interface Object_Pool extends AutoCloseable {
     public int working_object_count();
 
     /**
-     * Asks the pool to shutdown. Pool will be able to create new objects when
-     * asked, but pooling functionality will be stopped.
+     * Asks the pool to shutdown.
+     * <p>
+     * Pool will be able to create new objects when asked, but pooling
+     * functionality will be stopped.</p>
+     * <p>
+     * <b>Note:</b> Any blocked threads have been waiting for an object to gets
+     * free, and reused them will be informed, so pool is able to provide a
+     * out-of-pool scope object for them.
+     * </p><p>
+     * <b>Note:</b> If this pool instance has registered, so there should be a
+     * call to related context for an unregister request.
+     * </p>
      */
     public void shutdown_pool();
 
@@ -107,9 +141,12 @@ public interface Object_Pool extends AutoCloseable {
 
     /**
      * Indicates if the current instance has registered, or not.
-     * <p>Please see {@link Pool_Context}</p>
-     * @return if instance of this pool has added to the context(any), if {@code true},
-     * so the same reference could be grabbed from the context somewhere else.
+     * <p>
+     * Please see {@link Pool_Context}</p>
+     *
+     * @return if instance of this pool has added to the context(any), if
+     * {@code true}, so the same reference could be grabbed from the context
+     * somewhere else.
      */
     public boolean is_registered();
 

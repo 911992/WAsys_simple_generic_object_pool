@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:43:13 PM
     @author https://github.com/911992
   
 History:
+    0.4.6(20200602)
+        • Updated documentation
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -39,12 +42,40 @@ package wasys.lib.generic_object_pool;
  */
 public class Generic_Object_Pool_Policy {
 
+    /**
+     * Default maximum pool size.
+     */
     public static final int DEF_MAX_OBJ_COUNT = 64;
+    /**
+     * Default min/initial pool size.
+     */
     public static final int DEF_MIN_OBJ_COUNT = 0;
+    /**
+     * Default policy for a fulled object pool.
+     */
     public static final Full_Pool_Object_Creation_Policy DEF_OBJ_CREATION_POLICY = Full_Pool_Object_Creation_Policy.Create_New_No_Pooling;
+    /**
+     * Default object pool instance policy.
+     * <p>
+     * This instance is created using {@code DEF_MAX_OBJ_COUNT}, {@code DEF_MIN_OBJ_COUNT}, and {@code DEF_OBJ_CREATION_POLICY} .
+     * </p>
+     */
     public static final Generic_Object_Pool_Policy DEF_INS = new Generic_Object_Pool_Policy(DEF_MIN_OBJ_COUNT, DEF_MAX_OBJ_COUNT, DEF_OBJ_CREATION_POLICY);
 
+    /**
+     * Indicates the number of instances need to be created during pool creation/initialization.
+     * <p>
+     * This field is immutable/final, and cannot be changed once it gets first value.
+     * </p>
+     */
     final private int min_object_count;
+    
+    /**
+     * Indicates the maximum allowed poolable instances should be counter and hold using a pool.
+     * <p>
+     * <b>Note: </b> instance of a poolable object may be created more than this value, depends on related full pool policy.
+     * </p>
+     */
     private int max_object_count;
     final private Full_Pool_Object_Creation_Policy full_pool_instancing_policy;
 

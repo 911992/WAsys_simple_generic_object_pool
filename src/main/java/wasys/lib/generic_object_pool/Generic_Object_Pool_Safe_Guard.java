@@ -10,6 +10,9 @@ Created on: May 7, 2020 5:38:31 PM
     @author https://github.com/911992
   
 History:
+    0.4.6(20200602)
+        • Updated documentation
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -51,6 +54,9 @@ import wasys.lib.generic_object_pool.api.Poolable_Object;
  */
 public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
 
+    /**
+     * Pointer to the real, non-{@code null} object pool.
+     */
     final private Object_Pool pool;
 
     /**
@@ -121,6 +127,10 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         return pool.get_policy();
     }
 
+    /**
+     * Calls the associated pool {@code close()} method
+     * @throws Exception forwarded from associated pool.
+     */
     @Override
     public void close() throws Exception {
         synchronized (pool) {

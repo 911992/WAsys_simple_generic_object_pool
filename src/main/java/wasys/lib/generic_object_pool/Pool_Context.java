@@ -10,6 +10,10 @@ Created on: May 6, 2020 10:07:03 PM
     @author https://github.com/911992
  
 History:
+    0.4.6(20200602)
+        • Updated the documentation
+        • Using ArrayList, instead of Vector for local ctx field
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -29,24 +33,41 @@ History:
  */
 package wasys.lib.generic_object_pool;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import wasys.lib.generic_object_pool.api.Object_Factory;
 
 /**
  * Provides implemented({@link Generic_Object_Pool}) from either context, or
  * creates new one.
- *
+ * <p>
+ * For creating and register a object pool({@link Object_Pool}) request, the local/private context is searched first,
+ * if there is one pool with exact same policy and same factory, it will be returned, otherwise a new one will be created and registered.
+ * </p>
  * @author https://github.com/911992
  */
 public class Pool_Context {
 
+    /**
+     * Local static instance to make this type singleton.
+     */
     private static final Pool_Context INSTANCE = new Pool_Context();
 
-    private final Vector<Generic_Object_Pool> ctx = new Vector<Generic_Object_Pool>(1, 7);
+    /**
+     * Local context that holds all registered {@link Generic_Object_Pool} instances.
+     */
+    private final ArrayList<Generic_Object_Pool> ctx = new ArrayList<Generic_Object_Pool>();
 
+    /**
+     * private empty constructor.
+     * Does nothing as fields are initialized by declaration.
+     */
     private Pool_Context() {
     }
 
+    /**
+     * Returns the only one instance of this type.
+     * @return the static {@code INSTANCE} field.
+     */
     public static final Pool_Context get_insatcne() {
         return INSTANCE;
     }
@@ -109,7 +130,7 @@ public class Pool_Context {
         }
         if (arg_register) {
             for (int a = 0; a < ctx.size(); a++) {
-                Generic_Object_Pool _ins = ctx.elementAt(a);
+                Generic_Object_Pool _ins = ctx.get(a);
                 if (arg_obj_factory == _ins.get_factory() && _ins.get_policy().equals(arg_pool_Policy)) {
                     _res = _ins;
                     arg_register = false;
@@ -121,7 +142,7 @@ public class Pool_Context {
             _res = new Generic_Object_Pool(arg_obj_factory, arg_pool_Policy);
         }
         if (arg_register) {
-            ctx.addElement(_res);
+            ctx.add(_res);
         }
         if (arg_thread_safe) {
             return new Generic_Object_Pool_Safe_Guard(_res);
@@ -133,6 +154,9 @@ public class Pool_Context {
      * Removes the given pool instance from the context.
      * <p>Also calls the
      * {@code shutdown_pool()} method of the given index if asked</p>
+     * <p>
+     * The given {@code arg_pool_instance} should be a type of {@code Generic_Object_Pool}, since only this default type is kept by this context.
+     * </p>
      *
      * @param arg_pool_instance the non {@code null} pool instance need to be
      * removed from the local context

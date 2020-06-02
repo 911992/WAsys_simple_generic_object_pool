@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:34:51 PM
     @author https://github.com/911992
   
 History:
+    0.4.6(20200602)
+        • Updated the documentation
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -34,6 +37,13 @@ import wasys.lib.generic_object_pool.Object_Pool;
 public interface Object_Factory {
 
     /**
+     * Creates a {@link Poolable_Object} based on users need, and should return a non-{@code null} instance.
+     * <p>
+     * This method is called from an {@link Object_Pool}, when a new pool instance is required.
+     * </p>
+     * <p>
+     * If a {@code null} instance is returned, then associated object pool should not count it as a real/working instance, and simply return the same {@code null} to caller.
+     * </p>
      * @return the required/related {@link Poolable_Object} type
      */
     public Poolable_Object create_object();

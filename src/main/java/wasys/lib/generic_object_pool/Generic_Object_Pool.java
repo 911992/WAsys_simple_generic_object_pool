@@ -10,6 +10,13 @@ Created on: May 6, 2020 10:09:17 PM
     @author https://github.com/911992
   
 History:
+    0.4.6(20200602)
+        • Using ArrayList(as a non thread-safe context) instead of Vector
+        • Important: shutdown_pool() method now notify() the current instance(if it's required), if any blocked-thread(s) are waiting for an object.
+        • Renamed null_run to NULL_RUN
+        • Field null_run(NULL_RUN) is static
+        • Added more documentation
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -30,35 +37,66 @@ History:
  */
 package wasys.lib.generic_object_pool;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import wasys.lib.generic_object_pool.api.Object_Factory;
 import wasys.lib.generic_object_pool.api.Poolable_Object;
 
 /**
  * A <b>non-thread safe</b> implementation of {@link Object_Pool}.
- * <p>It needs a
- * {@link Object_Factory} for creating new poolable objects, besides that
- * depends on {@link Full_Pool_Object_Creation_Policy} type for fulled pool
+ * <p>
+ * It needs a {@link Object_Factory} for creating new poolable objects, besides
+ * that depends on {@link Full_Pool_Object_Creation_Policy} type for fulled pool
  * situation decision making.</p>
- * <p>It <b>does not</b> keep object
- * instance(references) of objects in use(gotten).</p>
- * <p><b>Note:</b> There is <b>NO</b> type check of releasing types, so make sure
+ * <p>
+ * It <b>does not</b> keep object instance(references) of objects in
+ * use(gotten).</p>
+ * <p>
+ * <b>Note:</b> There is <b>NO</b> type check of releasing types, so make sure
  * an object is acquired and released to the correct object pool instance</p>
- * <p><b>Note:</b> Any {@code null} instance by associated {@link  Object_Factory}
+ * <p>
+ * <b>Note:</b> Any {@code null} instance by associated {@link  Object_Factory}
  * <b>will not</b> be counted as a success object</p>
  *
  * @author https://github.com/911992
  */
 public class Generic_Object_Pool implements Object_Pool {
 
+    /**
+     * Reference to a concreted, and non-{@code null} object factory, to be
+     * called when a new instance is required.
+     */
     private final Object_Factory factory;
+
+    /**
+     * Reference to a non-{@code null} policy instance, that tells the pool how
+     * to behave.
+     */
     private final Generic_Object_Pool_Policy policy;
 
-    private Vector<Poolable_Object> pool;
+    /**
+     * Actual non-{@code synchronized} pool, that <b>idle</b> objects are stored.
+     */
+    private ArrayList<Poolable_Object> pool;
+    
+    /**
+     * Specifies the number of released objects are in used(by consumers).
+     */
     private int working_ins_count = 0;
+    /**
+     * Tells if the pool is working, or not(has been shutdown).
+     */
     volatile private boolean pool_working = true;
+    
+    /**
+     * Tells if this pool instance has registered, it means the same instance could be grabbed from pool context.
+     */
     private boolean registered;
 
+    /**
+     * Private anon runnable/op, when {@code notify}ing blocked instances are requried.
+     * <p>
+     * Example: when a thread should be <b>blocked</b>, since there is no idel instance ready to get released, so it should be waited for one to get freed</p>
+     */
     private final Runnable notify_thread_run = new Runnable() {
         @Override
         public void run() {
@@ -67,16 +105,27 @@ public class Generic_Object_Pool implements Object_Pool {
             }
         }
     };
-
-    private final Runnable null_run = new Runnable() {
+    
+    /**
+     * A private anon runnable that does nothing, considering a Null Pattern
+     */
+    static private final Runnable NULL_RUN = new Runnable() {
         @Override
         public void run() {
 
         }
     };
 
+    /**
+     * A pointer to a runnable should be called when an instance is freed/released.
+     */
     final private Runnable release_obj_run;
 
+    /**
+     * Default constructor.
+     * @param factory the non-{@code null} object factor should provide the {@link Poolable_Object} instance.
+     * @param policy the non-{@code null} pool policy to specify how this pool should behave
+     */
     public Generic_Object_Pool(Object_Factory factory, Generic_Object_Pool_Policy policy) {
         this.factory = factory;
         this.policy = policy;
@@ -86,21 +135,30 @@ public class Generic_Object_Pool implements Object_Pool {
                 break;
             }
             default: {
-                release_obj_run = null_run;
+                release_obj_run = NULL_RUN;
             }
         }
         init_pool();
     }
 
+    /**
+     * Initializes the pool.
+     * <p>Initialize the internal {@code pool} context.</p>
+     * <p>Also creates he minimum number of objects need to be created by pool creation.</p>
+     */
     private void init_pool() {
-        pool = new Vector<>(policy.getMax_object_count(), 11);
+        pool = new ArrayList<>(policy.getMax_object_count());
         for (int a = 0; a < policy.getMin_object_count(); a++) {
             Poolable_Object _ins = factory.create_object();
             _ins.set_pool(this);
-            pool.addElement(_ins);
+            pool.add(_ins);
         }
     }
 
+    /**
+     * returns the associated factory instance
+     * @return the {@code factory} field
+     */
     Object_Factory get_factory() {
         return factory;
     }
@@ -203,6 +261,15 @@ public class Generic_Object_Pool implements Object_Pool {
         if (registered) {
             Pool_Context.get_insatcne().unregister_pool(this, false);
         }
+        if (policy.getFull_pool_instancing_policy() == Full_Pool_Object_Creation_Policy.Wait_Till_One_Free) {
+            try {
+                synchronized (this) {
+                    this.notifyAll();
+                }
+            } catch (Exception e) {
+            }
+        }
+
     }
 
     @Override
@@ -215,11 +282,22 @@ public class Generic_Object_Pool implements Object_Pool {
         return registered;
     }
 
+    /**
+     * Simply calls {@code shutdown_pool()} method.
+     * @throws Exception (supposed to be exception-free, but throws because of {@link AutoCloseable})
+     */
     @Override
     public void close() throws Exception {
         shutdown_pool();
     }
 
+    /**
+     * Called by contex, to mark this pool object as registered.
+     * <p>
+     * Works as setter method for {@code registered} field.
+     * </p>
+     * @param arg_registered 
+     */
     void set_as_registered(boolean arg_registered) {
         this.registered = arg_registered;
     }

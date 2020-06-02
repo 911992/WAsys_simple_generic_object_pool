@@ -3,6 +3,15 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 file: [class_diagram](./_diagrams/class_diagram.svg)  
 Author: [911992](https://github.com/911992)  
 
+**v0.4.6** (Jun 2, 2020)
+
+* Changed the `Generic_Object_Pool.pool` type from `Vector` to `ArrayList`
+* Renamed `Generic_Object_Pool.null_run` field to `Generic_Object_Pool.NULL_RUN`
+* Field `null_run`(`NULL_RUN`) is not `static`
+* Changed the `Pool_Context.ctx` type from `Vector` to `ArrayList`
+
+<hr/>
+
 **v0.4.1** (May 22, 2020)
 
 * Marking the `DEF_MAX_OBJ_COUNT`, `DEF_MIN_OBJ_COUNT`, `DEF_OBJ_CREATION_POLICY`, and `DEF_INS` as `{final}` in class `Generic_Object_Pool_Policy`

@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:24:15 PM
     @author https://github.com/911992
  
 History:
+    0.4.6(20200602)
+        • Updated the documentation
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -44,6 +47,9 @@ import wasys.lib.generic_object_pool.api.Poolable_Object;
  */
 public final class Object_Pool_Type_Wrapper<A extends Poolable_Object> implements Object_Pool {
 
+    /**
+     * Pointer to the real, non-{@code null} object pool.
+     */
     final private Object_Pool pool;
 
     /**
@@ -105,7 +111,11 @@ public final class Object_Pool_Type_Wrapper<A extends Poolable_Object> implement
     public Generic_Object_Pool_Policy get_policy() {
         return pool.get_policy();
     }
-
+    
+    /**
+     * Calls the associated pool {@code close()} method
+     * @throws Exception forwarded from associated pool.
+     */
     @Override
     public void close() throws Exception {
         pool.close();

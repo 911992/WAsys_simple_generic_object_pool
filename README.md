@@ -2,7 +2,7 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
-Latest: v0.4.5 (Jun 1, 2020)  
+Latest: v0.4.6 (Jun 2, 2020)  
 Please refer to [release_note.md](./release_note.md) file  
 
 ## Requirements
@@ -41,7 +41,7 @@ Simply add the the following `depedency` to your `pom.xml` maven file.
 <dependency>
   <groupId>com.github.911992</groupId>
   <artifactId>WAsys_simple_generic_object_pool</artifactId>
-  <version>0.4.5</version>
+  <version>0.4.6</version>
 </dependency>
 ```
 
