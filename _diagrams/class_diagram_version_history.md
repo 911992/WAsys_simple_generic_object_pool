@@ -3,6 +3,12 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 file: [class_diagram](./_diagrams/class_diagram.svg)  
 Author: [911992](https://github.com/911992)  
 
+**v0.4.7** (Jun 4, 2020)
+
+* Added `mutex:Object` field to class `Generic_Object_Pool`
+
+<hr/>
+
 **v0.4.6** (Jun 2, 2020)
 
 * Changed the `Generic_Object_Pool.pool` type from `Vector` to `ArrayList`

@@ -4,6 +4,25 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.7** (Jun 4, 2020)  
+
+0. `Source_Code::Generic_Object_Pool`
+    * Added `mutex` field
+    * Locking object now, is `mutex` field, instead of current(`this`) object
+        * Thread signaling will now, will use a private internal `mutex` field, instead of shared `this` object.
+1. Maven artifact to version `0.4.7`
+2. Diagrams  
+    * Updated the class diagram (versioning file [here](./_diagrams/class_diagram_version_history.md))  
+3. Repo
+    * Remove `maven-publish.yml` github action file, as unexpected run op by github by each push
+    * updated `pom.xml` maven conf file
+        * Removed the duplicate sonatype plugin tag usage
+    * Updated `README.md`
+        * Changed maven repo version to `0.4.7`
+        * Added [mvn-repository](https://mvnrepository.com/artifact/com.github.911992/WAsys_simple_generic_object_pool) link
+
+<hr/>
+
 **0.4.6** (Jun 2, 2020)  
 
 0. **Bug fix:** `Object_Pool.shutdown()` method now should notify/unlock any blocked thread(due to wait for a pool instance) now.

@@ -12,6 +12,10 @@ Created on: May 31, 2020 10:38:11 PM
     @author https://github.com/911992
  
 History:
+    0.4.7(20200604)
+        • Artifact to 0.4.7
+        • Removed duplicated sonatype plugin tag usage
+    
     0.4.6(20200602)
         • Artifact to v0.4.6
         • Removed redundant config for maven sign plugin
@@ -32,7 +36,7 @@ History:
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.911992</groupId>
     <artifactId>WAsys_simple_generic_object_pool</artifactId>
-    <version>0.4.6</version>
+    <version>0.4.7</version>
     <packaging>jar</packaging>
     <description>Simple java object pooling lib</description>
     <url>https://github.com/911992/WAsys_simple_generic_object_pool</url>
@@ -69,7 +73,7 @@ History:
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
@@ -122,18 +126,6 @@ History:
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                </configuration>
             </plugin>
         </plugins>
     </build>

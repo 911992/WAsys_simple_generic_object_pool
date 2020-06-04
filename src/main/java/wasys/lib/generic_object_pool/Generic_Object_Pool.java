@@ -10,6 +10,10 @@ Created on: May 6, 2020 10:09:17 PM
     @author https://github.com/911992
   
 History:
+    0.4.7(20200604)
+        • Added mutex field
+        • Locking object now, is mutex field, instead of current(this) object
+    
     0.4.6(20200602)
         • Using ArrayList(as a non thread-safe context) instead of Vector
         • Important: shutdown_pool() method now notify() the current instance(if it's required), if any blocked-thread(s) are waiting for an object.
@@ -100,8 +104,8 @@ public class Generic_Object_Pool implements Object_Pool {
     private final Runnable notify_thread_run = new Runnable() {
         @Override
         public void run() {
-            synchronized (Generic_Object_Pool.this) {
-                Generic_Object_Pool.this.notify();
+            synchronized (Generic_Object_Pool.this.mutex) {
+                Generic_Object_Pool.this.mutex.notify();
             }
         }
     };
@@ -120,6 +124,18 @@ public class Generic_Object_Pool implements Object_Pool {
      * A pointer to a runnable should be called when an instance is freed/released.
      */
     final private Runnable release_obj_run;
+    
+    /**
+     * A mutex object, for thread-synchronization purpose(internal-impl) usage.
+     * <p>
+     * This is a lock/mutex object, which will be used for signaling between threads releasing objects, and those are waited for one.
+     * </p>
+     * <p>
+     * Perior v0.4.7, object {@code this} was used, now this object instead to avoid any external(out-of-lib-scope) object signaling by 3rd. parties.
+     * </p>
+     * @since 0.4.7
+     */
+    final private Object mutex=new Object();
 
     /**
      * Default constructor.
@@ -190,8 +206,8 @@ public class Generic_Object_Pool implements Object_Pool {
                 case Wait_Till_One_Free: {
                     try {
                         while (pool.size() == 0) {
-                            synchronized (this) {
-                                this.wait();
+                            synchronized (this.mutex) {
+                                this.mutex.wait();
                             }
                         }
                         return get_an_instance();
@@ -263,8 +279,8 @@ public class Generic_Object_Pool implements Object_Pool {
         }
         if (policy.getFull_pool_instancing_policy() == Full_Pool_Object_Creation_Policy.Wait_Till_One_Free) {
             try {
-                synchronized (this) {
-                    this.notifyAll();
+                synchronized (this.mutex) {
+                    this.mutex.notifyAll();
                 }
             } catch (Exception e) {
             }
