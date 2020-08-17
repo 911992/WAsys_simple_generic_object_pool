@@ -4,6 +4,14 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.4.7.1** (Aug 16, 2020)  
+
+0. Repo
+    * Updated `README.md`
+        * Added *Meta* section. To link related links/stuff to the repo.
+
+<hr/>
+
 **0.4.7** (Jun 4, 2020)  
 
 0. `Source_Code::Generic_Object_Pool`

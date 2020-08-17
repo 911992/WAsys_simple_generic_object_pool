@@ -2,7 +2,7 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
-Latest: v0.4.7 (Jun 4, 2020)  
+Latest: v0.4.7.1 (Auh 16, 2020)  
 Please refer to [release_note.md](./release_note.md) file  
 
 ## Requirements
@@ -46,7 +46,7 @@ Simply add the the following `depedency` to your `pom.xml` maven file.
 ```
 
 *Not a maven project? this project is ant compatible too*  
-*you may also grab artifact(s) from the [central maven repo](https://mvnrepository.com/artifact/com.github.911992/WAsys_simple_generic_object_pool) too.*
+*you may also grab artifact(s) from the [central maven repo](https://search.maven.org/search?q=g:com.github.911992%20AND%20a:WAsys_simple_generic_object_pool) too.*
 
 
 ## `Generic_Object_Pool` Activity | State Diagram
@@ -83,6 +83,10 @@ Only debugging could say, but considerring following possible scenarios.
 Reason 0: This is probably related to related/given `Generic_Object_Pool_Policy`, as `full_pool_instancing_policy := Wait_Till_One_Free`. It means current thread have to waint until anotehr thread release one object, so it could be recycled/reuse for current trhead/call.
 Reason 1: Related/given `Object_Factory` causes the thread lock, make sure it's implemented right.
 
+## Meta
+Also considerign following libs/tools may related to this repo
+0. [WAsys_Poolable_Object_generator_tool](https://github.com/911992/WAsys_Poolable_Object_generator_tool) tool to generate `Poolable_Object` entities
+1. [WAsys_pojo_http_data_entity_tool](https://github.com/911992/WAsys_pojo_http_data_entity_tool) tool to generate `Fillable_Object` (and `Poolable_Object`) entities
 
 ## TODOs
 - [x] documenting the source code(maybe next decade :D, it hurts!) (some essential public API types by v0.4)
