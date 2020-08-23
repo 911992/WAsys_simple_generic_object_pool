@@ -10,6 +10,12 @@ Created on: May 6, 2020 10:09:17 PM
     @author https://github.com/911992
   
 History:
+    0.5.1(20200823)
+        • Using wasys.lib.java_type_util.reflect.type_sig.Object_Factory instead of wasys.lib.generic_object_pool.api.Object_Factory
+        • Fixed create_object(:Class) calls over wasys.lib.java_type_util.reflect.type_sig.Object_Factory, passing null as argument
+        • Implemented Object_Factory functions, as Object_Pool extends from Object_Factory too
+        • Updated documentation
+
     0.4.7(20200604)
         • Added mutex field
         • Locking object now, is mutex field, instead of current(this) object
@@ -42,7 +48,7 @@ History:
 package wasys.lib.generic_object_pool;
 
 import java.util.ArrayList;
-import wasys.lib.generic_object_pool.api.Object_Factory;
+import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
 import wasys.lib.generic_object_pool.api.Poolable_Object;
 
 /**
@@ -69,7 +75,7 @@ public class Generic_Object_Pool implements Object_Pool {
      * Reference to a concreted, and non-{@code null} object factory, to be
      * called when a new instance is required.
      */
-    private final Object_Factory factory;
+    private final Object_Factory<Poolable_Object> factory;
 
     /**
      * Reference to a non-{@code null} policy instance, that tells the pool how
@@ -165,20 +171,23 @@ public class Generic_Object_Pool implements Object_Pool {
     private void init_pool() {
         pool = new ArrayList<>(policy.getMax_object_count());
         for (int a = 0; a < policy.getMin_object_count(); a++) {
-            Poolable_Object _ins = factory.create_object();
+            Poolable_Object _ins = factory.create_object(null);
             _ins.set_pool(this);
             pool.add(_ins);
         }
     }
 
     /**
-     * returns the associated factory instance
+     * returns the associated factory instance.
      * @return the {@code factory} field
      */
     Object_Factory get_factory() {
         return factory;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Poolable_Object get_an_instance() {
         Poolable_Object _res;
@@ -192,7 +201,7 @@ public class Generic_Object_Pool implements Object_Pool {
                     working_ins_count++;
                 }
                 case Create_New_No_Pooling: {
-                    _res = factory.create_object();
+                    _res = factory.create_object(null);
                     if (_res != null) {
                         _res.post_create();
                         _res.set_pool(this);
@@ -219,7 +228,7 @@ public class Generic_Object_Pool implements Object_Pool {
                 }
             }
         } else {
-            _res = factory.create_object();
+            _res = factory.create_object(null);
             if (_res != null) {
                 _res.post_create();
                 _res.set_pool(this);
@@ -232,6 +241,9 @@ public class Generic_Object_Pool implements Object_Pool {
         return _res;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void release_an_instance(Poolable_Object arg_instance) {
         if (arg_instance != null) {
@@ -250,21 +262,33 @@ public class Generic_Object_Pool implements Object_Pool {
         release_obj_run.run();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int idle_objects_count() {
         return pool.size();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int available_objects_count() {
         return policy.getMax_object_count() - working_ins_count;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int working_object_count() {
         return working_ins_count;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void shutdown_pool() {
         if (pool_working == false) {
@@ -288,11 +312,17 @@ public class Generic_Object_Pool implements Object_Pool {
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean pool_is_working() {
         return pool_working;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean is_registered() {
         return registered;
@@ -318,9 +348,20 @@ public class Generic_Object_Pool implements Object_Pool {
         this.registered = arg_registered;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Generic_Object_Pool_Policy get_policy() {
         return policy;
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public Poolable_Object create_object(Class type) {
+       return get_an_instance();
+    }
+    
 }

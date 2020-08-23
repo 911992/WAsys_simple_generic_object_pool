@@ -10,6 +10,10 @@ Created on: May 7, 2020 5:38:31 PM
     @author https://github.com/911992
   
 History:
+    0.5.1(20200823)
+        • Implemented Object_Factory functions, as Object_Pool extends from Object_Factory too
+        • Updated documentation
+
     0.4.6(20200602)
         • Updated documentation
 
@@ -33,6 +37,7 @@ History:
 package wasys.lib.generic_object_pool;
 
 import wasys.lib.generic_object_pool.api.Poolable_Object;
+import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
 
 /**
  * Proxy type for a concreted {@link Object_Pool}, makes the associated real
@@ -66,6 +71,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         this.pool = pool;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Poolable_Object get_an_instance() {
         synchronized (pool) {
@@ -73,6 +81,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void release_an_instance(Poolable_Object arg_instance) {
         synchronized (pool) {
@@ -80,6 +91,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int idle_objects_count() {
         synchronized (pool) {
@@ -87,6 +101,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int available_objects_count() {
         synchronized (pool) {
@@ -94,6 +111,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int working_object_count() {
         synchronized (pool) {
@@ -101,6 +121,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void shutdown_pool() {
         synchronized (pool) {
@@ -108,6 +131,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean pool_is_working() {
         synchronized (pool) {
@@ -115,6 +141,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean is_registered() {
         synchronized (pool) {
@@ -122,6 +151,9 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Generic_Object_Pool_Policy get_policy() {
         return pool.get_policy();
@@ -137,5 +169,16 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
             pool.close();
         }
     }
+
+    /**
+     * Get an instance of underlying(real) {@link Object_Factory}, and return it.
+     * {@inheritDoc}
+     */
+    @Override
+    public Poolable_Object create_object(Class type) {
+        return get_an_instance();
+    }
+    
+    
 
 }

@@ -4,6 +4,42 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.5.1** (Aug 23, 2020)  
+
+0. Intergration with [WAsys_Java_type_util](https://github.com/911992/WAsys_Java_type_util) repo
+    * Utilizing `Object_Factory<>` type, instead of inhouse `Object_Factory` for less confusion, and better maintaining in future.
+1. `Source_Code::Object_Factory` (from `wasys.lib.generic_object_pool.api`)
+    * Removed
+2. `Source_Code::<many>`
+    * Using `wasys.lib.java_type_util.reflect.type_sig.Object_Factory` instead of <s>`wasys.lib.generic_object_pool.api.Object_Factory`</s>
+    * Documentation fixes and update
+3. `Source_Code::Generic_Object_Pool`
+    * Fixed `create_object(:Class)` calls over `wasys.lib.java_type_util.reflect.type_sig.Object_Factory`, passing `null` as argument
+    * Implemented `Object_Factory` functions, as `Object_Pool` extends from `Object_Factory` too
+4. `Source_Code::Generic_Object_Pool_Safe_Guard`
+    * Implemented `Object_Factory` functions, as `Object_Pool` extends from `Object_Factory` too
+5. `Source_Code::Object_Pool`
+    * Extending from `Object_Factory<Poolable_Object>` interafce
+6. `Source_Code::Object_Pool_Type_Wrapper`
+    * Changed `arg_obj_factory` type from `Object_Factory` to `Object_Factory<Fillable_Object>` in constructor
+    * Added a new constructor to instantiate a `Generic_Object_Pool` based on given `Poolable_Object` type
+7. Diagrams  
+    * Updated the class diagram (versioning file [here](./_diagrams/class_diagram_version_history.md))  
+    * Updated the composite structure diagram (versioning file [here](./_diagrams/composite_struc_diagram_version_history.md))  
+8. Repo
+    * Updated `pom.xml`
+        * updated artifact to version `0.5.1`
+        * Added dependency to `WAsys_Java_type_util` artifact
+    * Updated `README.md`
+        * Typo fixes(lots of, added new typos for later fixes `(╯ ◡‿◡ )╯︵ ┻━┻` )
+        * Added [WAsys_Java_type_util](https://github.com/911992/WAsys_Java_type_util) as a requirement
+        * Edited *Object Creation* section, based on API/lib changes
+        * More detailed info for *Utilizing The Artifact* section
+        * Added dedicated *Installation* section for maven and ant builds
+        * Removed redundant/completed tasks in *TODOs* section
+
+<hr/>
+
 **0.4.7.1** (Aug 16, 2020)  
 
 0. Repo

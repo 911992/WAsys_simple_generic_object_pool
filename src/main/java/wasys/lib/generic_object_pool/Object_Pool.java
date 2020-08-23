@@ -10,6 +10,10 @@ Created on: May 7, 2020 3:01:55 AM
     @author https://github.com/911992
   
 History:
+    0.5.1(20200823)
+        • Extending from Object_Factory<Poolable_Object> interafce
+        • Updated documentation
+
     0.4.6(20200602)
         • Updated the documentation
 
@@ -29,13 +33,16 @@ History:
 package wasys.lib.generic_object_pool;
 
 import wasys.lib.generic_object_pool.api.Poolable_Object;
+import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
 
 /**
  * Defines the functionalities an object pool is required.
- *
+ * <p>
+ * Since version 0.5.1, this interface is an {@link Object_Factory} too.
+ * </p>
  * @author https://github.com/911992
  */
-public interface Object_Pool extends AutoCloseable {
+public interface Object_Pool extends AutoCloseable , Object_Factory<Poolable_Object> {
 
     /**
      * Returns an object by either from the pool(already created), or asks the
@@ -154,4 +161,18 @@ public interface Object_Pool extends AutoCloseable {
      * @return the policy instance where given by pool creation time
      */
     public Generic_Object_Pool_Policy get_policy();
+
+    /**
+     * Returns an instance of the pool.
+     * <p>
+     * Simply get an instance of {@code get_an_instance()} and return it back.
+     * </p>
+     * @param type (will be ignored), could be {@code null}.
+     * @return and instance of pooled type
+     * @since 0.5.1
+     */
+    @Override
+    public Poolable_Object create_object(Class type);
+    
+    
 }

@@ -3,6 +3,16 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 file: [class_diagram](./_diagrams/class_diagram.svg)  
 Author: [911992](https://github.com/911992)  
 
+**v0.5.1** (Aug 23, 2020)
+
+* Removed `wasys::lib::generic_object_pool::api::Object_Factory` interface
+* Added `WAsys_Java_type_util` componenet/artifact depedency
+    * Dependency to `Object_Factory<A>` and `Generic_Object_Factory<A>` (replaced `wasys::lib::generic_object_pool::api::Object_Factory`)
+* `Object_Pool` extends from `Object_Factory<Poolable_Object>` now
+* `Object_Pool_Type_Wrapper` creates `Generic_Object_Factory<A:Poolable_Object>` now
+
+<hr/>
+
 **v0.4.7** (Jun 4, 2020)
 
 * Added `mutex:Object` field to class `Generic_Object_Pool`

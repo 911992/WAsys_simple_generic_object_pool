@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:07:03 PM
     @author https://github.com/911992
  
 History:
+    0.5.1(20200823)
+        • Using wasys.lib.java_type_util.reflect.type_sig.Object_Factory instead of wasys.lib.generic_object_pool.api.Object_Factory
+
     0.4.6(20200602)
         • Updated the documentation
         • Using ArrayList, instead of Vector for local ctx field
@@ -34,7 +37,7 @@ History:
 package wasys.lib.generic_object_pool;
 
 import java.util.ArrayList;
-import wasys.lib.generic_object_pool.api.Object_Factory;
+import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
 
 /**
  * Provides implemented({@link Generic_Object_Pool}) from either context, or

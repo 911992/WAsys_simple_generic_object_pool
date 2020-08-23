@@ -2,11 +2,12 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
-Latest: v0.4.7.1 (Auh 16, 2020)  
+Latest: v0.5.1 (Aug 23, 2020)  
 Please refer to [release_note.md](./release_note.md) file  
 
 ## Requirements
 0. Java 1.7 or later
+1. [WAsys_Java_type_util](https://github.com/911992/WAsys_Java_type_util) 
 
 ## Class Diagram
 ![Class Diagram](./_diagrams/class_diagram_partial.svg)
@@ -17,36 +18,113 @@ Please refer to [release_note.md](./release_note.md) file
 ## Overview
 Implementation of a basic/generic Object Pooling(Interning) pattern in Java. Considering following characteristics of the implementation.
 
-### Objection Creation
-Object instansing(creation) **must** be implemented/provided by user. There is **no any** module to perform object creation automatically(considering using reflection, whatever...). `Object_Factory` is the interface need to implemnted by user. Function `create_object(void):Poolable_Object` is called by pool context when a new instance of target pool is requried.
+### Object Creation
+Object instancing is done when pool decides(based on its policy and state) to create an instance of `Poolable_Object`, and return it back to the caller. Since versiob `0.5.1`, this repo/lib is dependent to [`WAsys_Java_type_util`](https://github.com/911992/WAsys_Java_type_util) repo for object instancing.  
+User may eaither provide its implemented `Object_Factory<Poolable_Object>` type(recommended way), or simply use the `Generic_Object_Factory<Poolable_Object>` where instancing the type is not complex.
 
 ### Poolable Object Type
-Any poolable entity/bean must implements `Poolable_Object` or extend `Poolable_Object_Adapter` to be considered as a poolable instances. **NOTE:** Object state resetting is a user must be done stuff should be considered, since there is no any clue(or automated script/run) to reset a bean before gets acquired and used from an object pool.(considering `Poolable_Object.reset_state(void):void` method)
+Any poolable entity/bean must implements `Poolable_Object` or extend `Poolable_Object_Adapter` to be considered as a poolable instances.  
+**NOTE:** Object state resetting is a user must be done stuff should be considered, since there is no any clue(or automated script/run) to reset a bean before gets acquired and used from an object pool.(considering `Poolable_Object.reset_state(void):void` method)
 
 ### Releasing An Object
 This is up to user to either release a pooled object back to the related pool, or not(considering inconsistency). Either ways method `release_an_instance(:Poolable_Object):void` of related `Object_Pool` must be called with a usable non-`null` object, or `null` to inform pool update its counting state.  
 **HINT:** This is recommended to implement `java::lang::AutoClosable` or extend `Poolable_Object_Adapter`(which is a `Closable`), and use the required object inside a `try-with_resource`(`try(){}`) to release the `Poolable_Object` when it's no more required.
 
-## Utilizing The Artifact(hands on)
-Considering following steps need to be done in order to utilize this Object Pool.
-1. The type need to be pooled(e.g. `Foo_Barr_Entity_Class`) should eitehr extend class `Poolable_Object_Adapter` or implement `Poolable_Object`. **NOTE:** Make sure method `reset_state(void):void` is correctly implemnted.
-2. Implement interface `Object_Factory` and its `create_object(void):Poolable_Object`. Instance a non-`null` object, and return. **NOTE:** Objetc pool may not count any `null` instance by provided `Object_Factory`
-3. (optional, but recommended)Prepare an insatnce of `Generic_Object_Pool_Policy` that fits your requirements about object pooling behaivior and state.
-4. Ask for an `Object_Pool` instance from class `Pool_Context`, or instancing an `Object_Pool_Type_Wrapper` class.
+## Utilizing The Artifact
+Considering following steps need to be done in order to utilize this Object Pool.  
 
-### Maven Config (on github)
+**0) Defining The `Poolable_Object`**
+
+The type need to be pooled(e.g. `Foo_Bar_Entity_Class`) should either extend class `Poolable_Object_Adapter` or implement `Poolable_Object`.  
+**NOTE:** Make sure method `reset_state(void):void` is correctly implemnted.  
+```java
+public class Foo_Bar_Entity_Class extends Poolable_Object_Adapter{
+  private int sample_field;
+  /*called when instance need to be reset*/
+  @Override	public void reset_state() {
+    /*resetting the object state (ready to be used for next call)*/
+    sample_field = 0;
+  }
+}
+```
+*Code snippet 0: defining a `Poolable_Object`*  
+
+**HINT:** use [WAsys_pojo_http_data_entity_tool](https://github.com/911992/WAsys_pojo_http_data_entity_tool) which is a simple tool, generate `Poolable_Object` skeletons in far easier way.
+
+**1) Defining The `Object_Factory<Poolable_Object>`**
+
+Provide an `Object_Factory<Poolable_Object>` (from `WAsys_Java_type_util`). Could be done using following solutions  
+
+0. (recommended)Implement interface `Object_Factory<Poolable_Object>` and its `create_object(:Class):Poolable_Object`. Instance a non-`null` object, and return.  
+**NOTE:** Object pool may not count any `null` instance is provided by `Object_Factory`.  
+```java
+class Foo_Bar_Entity_Class_Factory implements Object_Factory<Foo_Bar_Entity_Class>{
+    @Override public Poolable_Object create_object() {
+    /*create an instance of Foo_Bar_Entity_Class*/
+    Foo_Bar_Entity_Class _ins = new Foo_Bar_Entity_Class();
+    /*initialize the instance and return it*/
+    return _ins;
+  }
+}
+```  
+*Code snippet 1: defining a custom `Object_Factory<Poolable_Object>`*  
+
+1. If the type instancing is done using default public constructor, and is not complex, you also could create a fast `Object_Factory` by instancing `Generic_Object_Factory` then.  
+```java
+Generic_Object_Factory<Foo_Bar_Entity_Class> = new Generic_Object_Factory<Foo_Bar_Entity_Class>(Foo_Bar_Entity_Class.class,...);
+```  
+*Code snippet 2: defining a `Object_Factory<Poolable_Object>` using `Generic_Object_Factory`*  
+
+**2) Defining The Pool Policy**  
+
+(optional, but recommended)Prepare an insatnce of `Generic_Object_Pool_Policy` that fits your requirements about object pooling behavior and state.
+
+**3) Registering(And Grabbing) `Object_Pool` Instance**  
+Ask for an `Object_Pool` instance from class `Pool_Context`, or instancing an `Object_Pool_Type_Wrapper` class.  
+```java
+Object_Pool _pool = Pool_Context.get_insatcne().get_pool_unregistered_synced(new Foo_Bar_Entity_Class_Factory(),Generic_Object_Pool_Policy.DEF_INS);
+```  
+*Code snippet 3: grabbing (and registering) an `Object_Pool` using `Pool_Context`*  
+
+**HINT:** since version `0.5.1`, providing the `Object_Factory`(step 1.1) could be ommited by using `Object_Pool_Type_Wrapper`, that do the job(creating `Object_Factory`) implicitly.  
+```java
+Object_Pool_Type_Wrapper<Foo_Bar_Entity_Class> _pool = new Object_Pool_Type_Wrapper<Foo_Bar_Entity_Class>(Foo_Bar_Entity_Class.class,...);
+```  
+*Code snippet 4: creating (and registering) an `Object_Pool` using `Object_Pool_Type_Wrapper`*  
+
+## Installation
+Repository is available in maven central repository(and its dependencies). Or you may perform a local build by clone and build it using eitehr maven(recommended) or ant.
+
+### Maven Dependency
 Simply add the the following `depedency` to your `pom.xml` maven file.  
 
 ```xml
 <dependency>
   <groupId>com.github.911992</groupId>
   <artifactId>WAsys_simple_generic_object_pool</artifactId>
-  <version>0.4.7</version>
+  <version>0.5.1</version>
 </dependency>
 ```
+*Code snippet 5: maven dependency*  
+*you may also grab artifact(s) from the [central maven repo](https://search.maven.org/search?q=g:com.github.911992%20AND%20a:WAsys_simple_generic_object_pool) too.*  
 
-*Not a maven project? this project is ant compatible too*  
-*you may also grab artifact(s) from the [central maven repo](https://search.maven.org/search?q=g:com.github.911992%20AND%20a:WAsys_simple_generic_object_pool) too.*
+### Build Using Maven
+Clone the repo using `git clone https://github.com/911992/WAsys_simple_generic_object_pool.git`  
+And build it using `mvn` as following
+```
+mvn clean dependency:copy-dependencies package
+```
+Generated `jar`(s)  will be available under `target` folder.
+
+### Build Using Ant
+Clone the repo using `git clone https://github.com/911992/WAsys_simple_generic_object_pool.git`  
+And build it using `ant` as following
+```
+ant clean jar
+```
+Generated `jar` (without dependent artifacts)  will be available under `dist` folder.
+*Not a maven project? this project is `ant` compatible too*  
+
 
 
 ## `Generic_Object_Pool` Activity | State Diagram
@@ -63,7 +141,7 @@ A: Each `Object_Pool` in context is associated to given `arg_factory` and `arg_p
 A: Please don't. The Default `Generic_Object_Pool` implementation may not keep instances of working instances, so for any forgotten releasing objects, there will be no any mem-leak from pool, but inconsistency.
 
 **Q2: What if user forgets to implement the `reset_state(void):void` method on target `Poolable_Object` type?**  
-A: Please don't. There will be no explicite problem related to pool context/object, but this may bring some inconsistency for user business part.
+A: Please don't. There will be no explicitly-related issue to pool context/object, but this may bring some inconsistency for user business part.
 
 **Q3: What is the different(s) between obtaining an `Object_Pool` using `Pool_Context`, or `new`ing an `Object_Pool_Type_Wrapper`?**  
 A: Type `Object_Pool_Type_Wrapper` will actually call `Pool_Context`. If wrapping object(`Poolable_Object` -> `<<implemented type>>`) is not a big-deal for user, you may better use `Pool_Context` way(recommended). Actually `Object_Pool_Type_Wrapper` works as a type wrapper(proxy) between actual desired user type, and `Poolable_Object`
@@ -74,11 +152,11 @@ A: `Object_Pool` will call the associated factory for object creation, but will 
 ## Troubleshooting
 **T0: `Object_Pool::get_an_instance(void):Poolable_Object` instance, returns a `null` object**  
 Possible situations:  
-* This is related to related/given `Object_factory`, make sure the implemented type works well.
+* This is related to related/given `Object_Factory`, make sure the implemented type works well.
 * Pool is full, and user has initialized/set the `Full_Pool_Object_Creation_Policy` with related `Generic_Object_Pool_Policy` as **`Return_Null`**.
 
 
-**T1: Thread endless wait on `Object_Pool::get_an_instance(void):Poolable_Object` call**  
+**T1: Thread endlessly wait on `Object_Pool::get_an_instance(void):Poolable_Object` call**  
 Only debugging could say, but considerring following possible scenarios.
 Reason 0: This is probably related to related/given `Generic_Object_Pool_Policy`, as `full_pool_instancing_policy := Wait_Till_One_Free`. It means current thread have to waint until anotehr thread release one object, so it could be recycled/reuse for current trhead/call.
 Reason 1: Related/given `Object_Factory` causes the thread lock, make sure it's implemented right.
@@ -89,6 +167,4 @@ Also considerign following libs/tools may related to this repo
 1. [WAsys_pojo_http_data_entity_tool](https://github.com/911992/WAsys_pojo_http_data_entity_tool) tool to generate `Fillable_Object` (and `Poolable_Object`) entities
 
 ## TODOs
-- [x] documenting the source code(maybe next decade :D, it hurts!) (some essential public API types by v0.4)
-- [ ] more sample usage
 - [ ] more control for pooled object at `Object_Pool` level (not sure yet!)

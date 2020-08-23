@@ -5,6 +5,7 @@
 package wasys.lib.generic_object_pool.api;
 
 import wasys.lib.generic_object_pool.Object_Pool;
+import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
 
 /*
 WAsys_simple_generic_object_pool
@@ -13,6 +14,9 @@ Created on: May 6, 2020 10:29:35 PM
     @author https://github.com/911992
   
 History:
+    0.5.1(20200823)
+        • Using wasys.lib.java_type_util.reflect.type_sig.Object_Factory instead of wasys.lib.generic_object_pool.api.Object_Factory
+
     0.4(20200522)
         • Updated the header(this comment) part
         • Added some doc

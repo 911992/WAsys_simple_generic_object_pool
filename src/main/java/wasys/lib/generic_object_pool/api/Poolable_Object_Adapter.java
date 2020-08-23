@@ -10,6 +10,9 @@ Created on: May 6, 2020 10:34:03 PM
     @author https://github.com/911992
   
 History:
+    0.5.1(20200823)
+        • Updated documentation
+
     0.4.5(20200601)
         • Fixed some issues related to javadoc
 
@@ -41,10 +44,16 @@ public abstract class Poolable_Object_Adapter implements Poolable_Object, AutoCl
      */
     protected Object_Pool pool;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void post_create() {
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void pre_destroy() {
     }

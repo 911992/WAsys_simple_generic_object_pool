@@ -10,6 +10,13 @@ Created on: May 6, 2020 10:24:15 PM
     @author https://github.com/911992
  
 History:
+    0.5.1(20200823)
+        • Using wasys.lib.java_type_util.reflect.type_sig.Object_Factory instead of wasys.lib.generic_object_pool.api.Object_Factory
+        • Changed arg_obj_factory type from Object_Factory to Object_Factory<Fillable_Object> in constructor
+        • Added a new constructor to instantiate a Generic_Object_Pool based on given Poolable_Object type
+        • Implemented Object_Factory functions, as Object_Pool extends from Object_Factory too
+        • Updated documentation
+
     0.4.6(20200602)
         • Updated the documentation
 
@@ -29,8 +36,9 @@ History:
  */
 package wasys.lib.generic_object_pool;
 
-import wasys.lib.generic_object_pool.api.Object_Factory;
+import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
 import wasys.lib.generic_object_pool.api.Poolable_Object;
+import wasys.lib.java_type_util.reflect.type_sig.impl.Generic_Object_Factory;
 
 /**
  * Type-wrapper for a concreted {@link Object_Pool} instance.
@@ -53,60 +61,108 @@ public final class Object_Pool_Type_Wrapper<A extends Poolable_Object> implement
     final private Object_Pool pool;
 
     /**
-     * Simple forward the call to {@code get_pool} method of type
-     * {@link Pool_Context}
+     * Simple forward the call to {@code get_pool} method of type {@link Pool_Context}.
      *
-     * @param arg_obj_factory the factory class is needed to creating the
-     * objects
+     * @param arg_obj_factory the factory class is needed to creating the objects
      * @param arg_policy pool initialize and working policy
      * @param arg_thread_safe if the pool need to be thread-safe
-     * @param arg_register if the associated(real) pool need to registered or
-     * not to default {@link Pool_Context}
+     * @param arg_register if the associated(real) pool need to registered or not to default {@link Pool_Context}
      */
-    public Object_Pool_Type_Wrapper(Object_Factory arg_obj_factory, Generic_Object_Pool_Policy arg_policy, boolean arg_thread_safe, boolean arg_register) {
+    public Object_Pool_Type_Wrapper(Object_Factory<A> arg_obj_factory, Generic_Object_Pool_Policy arg_policy, boolean arg_thread_safe, boolean arg_register) {
         pool = Pool_Context.get_insatcne().get_pool(arg_obj_factory, arg_policy, arg_thread_safe, arg_register);
     }
+    
+    /**
+     * Creates an {@link Generic_Object_Factory} of given {@code arg_obj_class}, and forward it to {@code Object_Pool_Type_Wrapper(:Object_Factory<A>,:Generic_Object_Pool_Policy,:boolean,:boolean)} constructor.
+     * <p>
+     * The given {@code arg_obj_class} <b>MUST</b> have a public default constructor.
+     * </p>
+     * <p>
+     * If instancing of {@code arg_obj_class} is a complex work, this is highly recommended to implement a user-defined {@link Object_Factory}, rather than asking for the generic one.
+     * </p>
+     * <p>
+     * <b>Important note:</b> make sure the given {@code arg_obj_class} would not throw any exception during instancing, otherwise related {@link Object_Pool} will provide unexpected({@code null}) instances.
+     * </p>
+     * @param arg_obj_class the class/type should be pooled
+     * @param arg_policy pool initialize and working policy
+     * @param arg_thread_safe if the pool need to be thread-safe
+     * @param arg_register if the associated(real) pool need to registered or not to default {@link Pool_Context}
+     * @throws IllegalAccessException (thrown by {@link Generic_Object_Factory}) if given {@code arg_type}(type) is not a instance-able one(enum | interface | abstract-class), or the default constructor is not {@code public}
+     * @throws NoSuchMethodException (thrown by {@link Generic_Object_Factory}) 
+     * @since 0.5.1
+     */
+    public Object_Pool_Type_Wrapper(Class<A> arg_obj_class, Generic_Object_Pool_Policy arg_policy, boolean arg_thread_safe, boolean arg_register) throws IllegalAccessException, NoSuchMethodException{
+        this(new Generic_Object_Factory<A>(arg_obj_class),arg_policy,arg_thread_safe,arg_register);
+//        pool = Pool_Context.get_insatcne().get_pool(arg_obj_factory, arg_policy, arg_thread_safe, arg_register);
+    }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public A get_an_instance() {
         return (A) pool.get_an_instance();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void release_an_instance(Poolable_Object arg_instance) {
         pool.release_an_instance(arg_instance);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int idle_objects_count() {
         return pool.idle_objects_count();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int available_objects_count() {
         return pool.available_objects_count();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public int working_object_count() {
         return pool.working_object_count();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void shutdown_pool() {
         pool.shutdown_pool();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean pool_is_working() {
         return pool.pool_is_working();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean is_registered() {
         return pool.is_registered();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Generic_Object_Pool_Policy get_policy() {
         return pool.get_policy();
@@ -119,6 +175,15 @@ public final class Object_Pool_Type_Wrapper<A extends Poolable_Object> implement
     @Override
     public void close() throws Exception {
         pool.close();
+    }
+
+    /**
+     * Get an instance of underlying(real) {@link Object_Factory}, and return it.
+     * {@inheritDoc}
+     */
+    @Override
+    public Poolable_Object create_object(Class type) {
+        return get_an_instance();
     }
 
 }
