@@ -4,6 +4,12 @@ repo: [WAsys_simple_generic_object_pool](https://github.com/911992/WAsys_simple_
 file: [object_pool_state](./_diagrams/object_pool_state.svg)  
 Author: [911992](https://github.com/911992)  
 
+**v0.5.7** (Aug 29, 2020)
+
+* Removed `Unregister pool from context` state, since it(`Pool_Context`) is no more
+
+<hr/>
+
 **v0.4** (May 22, 2020)
 
 * Fixed/placed the "Reset obj state", now by "Call for releasing a pooled object" signal

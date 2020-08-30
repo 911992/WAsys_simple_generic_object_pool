@@ -12,6 +12,10 @@ Created on: May 31, 2020 10:38:11 PM
     @author https://github.com/911992
  
 History:
+    0.5.7(20200829)
+        • Added copyright literal for generated javadoc(plugin)
+        • Artifact to 0.5.7
+
     0.5.1(20200823)
         • Dependency to WAsys_Java_type_util artifact
         • Artifact to 0.5.1
@@ -40,7 +44,7 @@ History:
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.911992</groupId>
     <artifactId>WAsys_simple_generic_object_pool</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.7</version>
     <packaging>jar</packaging>
     <description>Simple java object pooling lib</description>
     <url>https://github.com/911992/WAsys_simple_generic_object_pool</url>
@@ -114,6 +118,9 @@ History:
                 <version>3.2.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                    <bottom>
+                    <![CDATA[Copyright © 2020 <a href="https://github.com/911992">https://github.com/911992</a>. Licensed under The 3-Clause BSD License]]>
+                    </bottom>
                 </configuration>
                 <executions>
                     <execution>

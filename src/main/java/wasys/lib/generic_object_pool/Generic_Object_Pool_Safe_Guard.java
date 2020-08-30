@@ -10,6 +10,12 @@ Created on: May 7, 2020 5:38:31 PM
     @author https://github.com/911992
   
 History:
+    0.5.7(20200829)
+        • Type is generic <A:Poolable_Object> (as it's super interface is)
+        • Removed is_registered method
+        • Marked the constructor with default package access-spec
+        • Updated documentation
+
     0.5.1(20200823)
         • Implemented Object_Factory functions, as Object_Pool extends from Object_Factory too
         • Updated documentation
@@ -50,24 +56,25 @@ import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
  * thread-safe {@link Object_Pool}, thread-safe.</p>
  * <p>By initializing, the associated
  * the {@link Object_Pool} should be provided.</p>
- * <p><b>Important Note:</b> thread-safety is done @{code synchronize}ing the
- * associated the {@link Object_Pool}, rather than @{code synchronized methods},
+ * <p><b>Important Note:</b> thread-safety is done by {@code synchronize}ing the
+ * associated {@link Object_Pool}, rather than {@code synchronized} methods,
  * sine a shared {@link Object_Pool} could be used for different instances of
  * this type.</p>
- *
  * @author https://github.com/911992
+ * @see Generic_Object_Pool#new_pool_instance(java.lang.Class, wasys.lib.generic_object_pool.Generic_Object_Pool_Policy, boolean) 
+ * @see Generic_Object_Pool#new_pool_instance(wasys.lib.java_type_util.reflect.type_sig.Object_Factory, wasys.lib.generic_object_pool.Generic_Object_Pool_Policy, boolean) 
  */
-public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
+public class Generic_Object_Pool_Safe_Guard<A extends Poolable_Object> implements Object_Pool<A> {
 
     /**
      * Pointer to the real, non-{@code null} object pool.
      */
-    final private Object_Pool pool;
+    final private Object_Pool<A> pool;
 
     /**
      * @param pool the implemented pool instance need to be threaded thread-safe
      */
-    public Generic_Object_Pool_Safe_Guard(Object_Pool pool) {
+    Generic_Object_Pool_Safe_Guard(Object_Pool<A> pool) {
         this.pool = pool;
     }
 
@@ -75,7 +82,7 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
      * {@inheritDoc }
      */
     @Override
-    public Poolable_Object get_an_instance() {
+    public A get_an_instance() {
         synchronized (pool) {
             return pool.get_an_instance();
         }
@@ -85,7 +92,7 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
      * {@inheritDoc }
      */
     @Override
-    public void release_an_instance(Poolable_Object arg_instance) {
+    public void release_an_instance(A arg_instance) {
         synchronized (pool) {
             pool.release_an_instance(arg_instance);
         }
@@ -145,16 +152,6 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
      * {@inheritDoc }
      */
     @Override
-    public boolean is_registered() {
-        synchronized (pool) {
-            return pool.is_registered();
-        }
-    }
-
-    /**
-     * {@inheritDoc }
-     */
-    @Override
     public Generic_Object_Pool_Policy get_policy() {
         return pool.get_policy();
     }
@@ -175,10 +172,8 @@ public class Generic_Object_Pool_Safe_Guard implements Object_Pool {
      * {@inheritDoc}
      */
     @Override
-    public Poolable_Object create_object(Class type) {
+    public A create_object(Class type) {
         return get_an_instance();
     }
-    
-    
 
 }

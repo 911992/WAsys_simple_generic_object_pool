@@ -5,11 +5,14 @@
 
  /*
 WAsys_simple_generic_object_pool
-File: Generic_Object_Pool_Policy.jav
+File: Generic_Object_Pool_Policy.java
 Created on: May 6, 2020 10:43:13 PM
     @author https://github.com/911992
   
 History:
+    0.5.7(20200829)
+        • Changed the default max value(DEF_MAX_OBJ_COUNT) from 64 to 8 (since 64 would be too much for most cases)
+
     0.4.6(20200602)
         • Updated documentation
 
@@ -45,7 +48,7 @@ public class Generic_Object_Pool_Policy {
     /**
      * Default maximum pool size.
      */
-    public static final int DEF_MAX_OBJ_COUNT = 64;
+    public static final int DEF_MAX_OBJ_COUNT = 8;
     /**
      * Default min/initial pool size.
      */

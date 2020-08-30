@@ -2,7 +2,7 @@
 A very simple and generic Object Pooling pattern implementation.
 
 ## Revision History
-Latest: v0.5.1 (Aug 23, 2020)  
+Latest: v0.5.7 (Aug 29, 2020)  
 Please refer to [release_note.md](./release_note.md) file  
 
 ## Requirements
@@ -19,8 +19,8 @@ Please refer to [release_note.md](./release_note.md) file
 Implementation of a basic/generic Object Pooling(Interning) pattern in Java. Considering following characteristics of the implementation.
 
 ### Object Creation
-Object instancing is done when pool decides(based on its policy and state) to create an instance of `Poolable_Object`, and return it back to the caller. Since versiob `0.5.1`, this repo/lib is dependent to [`WAsys_Java_type_util`](https://github.com/911992/WAsys_Java_type_util) repo for object instancing.  
-User may eaither provide its implemented `Object_Factory<Poolable_Object>` type(recommended way), or simply use the `Generic_Object_Factory<Poolable_Object>` where instancing the type is not complex.
+Object instancing is done when pool decides(based on its policy and state) to create an instance of `Poolable_Object`, and return it back to the caller. Since version `0.5.1`, this repo/lib is dependent to [`WAsys_Java_type_util`](https://github.com/911992/WAsys_Java_type_util) repo for object instancing.  
+User may either provide its implemented `Object_Factory<Poolable_Object>` type(recommended way), or simply use the `Generic_Object_Factory<Poolable_Object>` where instancing the type is not complex.
 
 ### Poolable Object Type
 Any poolable entity/bean must implements `Poolable_Object` or extend `Poolable_Object_Adapter` to be considered as a poolable instances.  
@@ -79,18 +79,30 @@ Generic_Object_Factory<Foo_Bar_Entity_Class> = new Generic_Object_Factory<Foo_Ba
 
 (optional, but recommended)Prepare an insatnce of `Generic_Object_Pool_Policy` that fits your requirements about object pooling behavior and state.
 
-**3) Registering(And Grabbing) `Object_Pool` Instance**  
-Ask for an `Object_Pool` instance from class `Pool_Context`, or instancing an `Object_Pool_Type_Wrapper` class.  
-```java
-Object_Pool _pool = Pool_Context.get_insatcne().get_pool_unregistered_synced(new Foo_Bar_Entity_Class_Factory(),Generic_Object_Pool_Policy.DEF_INS);
-```  
-*Code snippet 3: grabbing (and registering) an `Object_Pool` using `Pool_Context`*  
+**3) Creating An `Object_Pool` Instance**  
+`Generic_Object_Pool<E>` is the default impl of the `Object_Pool<E:Poolable_Object>` which is provided by the lib. It has two public static functions(as listed below) to provide concreted `Object_Pool<E>`
 
-**HINT:** since version `0.5.1`, providing the `Object_Factory`(step 1.1) could be ommited by using `Object_Pool_Type_Wrapper`, that do the job(creating `Object_Factory`) implicitly.  
+* `new_pool_instance(:Object_Factory<C>,:Generic_Object_Pool_Policy,arg_thread_safe:bool):Object_Pool<C>` *(returns a concreted `Object_Pool<C>`)*
+* `new_pool_instance(:Class<C>,:Generic_Object_Pool_Policy,arg_thread_safe:bool):Object_Pool<C>` *(creates an `Object_Factory<C>` from given `Class<C>` and calls teh above func)*
+
 ```java
-Object_Pool_Type_Wrapper<Foo_Bar_Entity_Class> _pool = new Object_Pool_Type_Wrapper<Foo_Bar_Entity_Class>(Foo_Bar_Entity_Class.class,...);
+//Implement a factory for the type needs to be pooled
+class Foo_Bar_Entity_Class_Factory implements Object_Factory<Foo_Bar_Entity_Class_Factory>{
+...
+}
+//creating a thread-safe Object_Pool
+Object_Pool<Foo_Bar_Entity_Class_Factory> _pool = Generic_Object_Pool.new_pool_instance(new Foo_Bar_Entity_Class_Factory(),Generic_Object_Pool_Policy.DEF_INS,true/*true(by default) to ask for a thread-safe Object_Pool*/);
 ```  
-*Code snippet 4: creating (and registering) an `Object_Pool` using `Object_Pool_Type_Wrapper`*  
+*Code snippet 3: Creating a thread-safe `Object_Pool<Foo_Bar_Entity_Class_Factory>` with an existing/concreted `Object_Factory<Foo_Bar_Entity_Class_Factory>`*  
+
+**HINT:** since version `0.5.7`, the internal pool context(`Pool_Context`) was removed.
+
+```java
+Object_Pool<Foo_Bar_Entity_Class> _pool = new Generic_Object_Pool.new_pool_instance<Foo_Bar_Entity_Class>(Foo_Bar_Entity_Class.class,...);
+```  
+*Code snippet 4: creating an `Object_Pool<Foo_Bar_Entity_Class_Factory>` without an existing `Object_Factory`*  
+
+**NOTE:** Since version `0.5.7`, internal context(`Pool_Context`) was removed, same for `Object_Pool_Type_Wrapper<E>` as the `Object_Pool<:Poolable_Object>` is generic now.
 
 ## Installation
 Repository is available in maven central repository(and its dependencies). Or you may perform a local build by clone and build it using eitehr maven(recommended) or ant.
@@ -102,7 +114,7 @@ Simply add the the following `depedency` to your `pom.xml` maven file.
 <dependency>
   <groupId>com.github.911992</groupId>
   <artifactId>WAsys_simple_generic_object_pool</artifactId>
-  <version>0.5.1</version>
+  <version>0.5.7</version>
 </dependency>
 ```
 *Code snippet 5: maven dependency*  
@@ -134,19 +146,13 @@ Generated `jar` (without dependent artifacts)  will be available under `dist` fo
 You may check [this repo](https://github.com/911992/WAsys_simple_generic_object_pool_sample_usage)
 
 ## FAQ
-**Q0: How does `get_pool`(or `get_pool_unregistered_synced`, `get_pool_registered_synced`) function in `Pool_Context` provide an instance of `Object_Pool`?**  
-A: Each `Object_Pool` in context is associated to given `arg_factory` and `arg_pool_policy` args. So if any previously created `Object_Pool` impl(`Generic_Object_Pool`) were created, it would the result(shared-instance), otherwise a new `Object_Pool` object will be created and return.
-
-**Q1: What if user forgets to release an `Poolable_Object`?**  
+**Q0: What if user forgets to release an `Poolable_Object`?**  
 A: Please don't. The Default `Generic_Object_Pool` implementation may not keep instances of working instances, so for any forgotten releasing objects, there will be no any mem-leak from pool, but inconsistency.
 
-**Q2: What if user forgets to implement the `reset_state(void):void` method on target `Poolable_Object` type?**  
+**Q1: What if user forgets to implement the `reset_state(void):void` method on target `Poolable_Object` type?**  
 A: Please don't. There will be no explicitly-related issue to pool context/object, but this may bring some inconsistency for user business part.
 
-**Q3: What is the different(s) between obtaining an `Object_Pool` using `Pool_Context`, or `new`ing an `Object_Pool_Type_Wrapper`?**  
-A: Type `Object_Pool_Type_Wrapper` will actually call `Pool_Context`. If wrapping object(`Poolable_Object` -> `<<implemented type>>`) is not a big-deal for user, you may better use `Pool_Context` way(recommended). Actually `Object_Pool_Type_Wrapper` works as a type wrapper(proxy) between actual desired user type, and `Poolable_Object`
-
-**Q4: What if calling for a new objects from an already shutdown `Object_Pool`?**  
+**Q2: What if calling for a new objects from an already shutdown `Object_Pool`?**  
 A: `Object_Pool` will call the associated factory for object creation, but will not count new creation calls when a pool is in shutdown state.
 
 ## Troubleshooting

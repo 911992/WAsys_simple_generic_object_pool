@@ -3,6 +3,21 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 file: [class_diagram](./_diagrams/class_diagram.svg)  
 Author: [911992](https://github.com/911992)  
 
+
+**v0.5.7** (Aug 29, 2020)
+
+* Removed `wasys::lib::generic_object_pool::Object_Pool_Type_Wrapper` class
+* Removed `wasys::lib::generic_object_pool::Pool_Context` class
+* Changed the `DEF_MAX_OBJ_COUNT` of `Generic_Object_Pool_Policy` class to `8` (previously as `64`)
+* Interface `Object_Pool`, and class `Generic_Object_Pool` are now generic/types as `<A:Poolable_Object>`
+* Changed signature of `Object_Pool` methods to accept type-var `A` instead of `Poolable_Object`
+* Removed `is_registered(void):bool` method from `Object_Pool`
+* Added `new_pool_instance(:Object_Factory<C>,:Generic_Object_Pool_Policy,arg_thread_safe:bool:=true):Object_Pool<C>` and `new_pool_instance(:Class<C>,:Generic_Object_Pool_Policy,arg_thread_safe:bool:=true):Object_Pool<C>` `static` methods to `Generic_Object_Pool`
+* Marked essential members of `Generic_Object_Pool` with `protected` access-spec
+* Fixed association links between `Generic_Object_Pool`, `Generic_Object_Pool_Safe_Guard`, and `Generic_Object_Factory` as removal of `Pool_Context`, and `Object_Pool_Type_Wrapper` classes.
+
+<hr/>
+
 **v0.5.1** (Aug 23, 2020)
 
 * Removed `wasys::lib::generic_object_pool::api::Object_Factory` interface

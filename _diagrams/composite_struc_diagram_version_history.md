@@ -3,6 +3,14 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 file: [class_diagram](./_diagrams/composite_struc_diagram.svg)  
 Author: [911992](https://github.com/911992)  
 
+**v0.5.7** (Aug 29, 2020)
+
+* Removed `Pool_Context` class as it's no more
+* Added `Generic_Object_Pool_Safe_Guard`
+* Fixed the associations (still a little confusing, sorry)
+
+<hr/>
+
 **v0.5.1** (Aug 23, 2020)
 
 * Removed `Object_Factory` and its package `wasys::lib::generic_object_pool`

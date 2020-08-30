@@ -4,6 +4,53 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.5.7** (Aug 29, 2020)  
+
+0. Marked the `Object_Pool` generic.
+1. Removed The internal pool context
+2. `Source_Code::Generic_Object_Pool`
+    * Type is generic `<A:Poolable_Object>` (as it's super interface is)
+    * Updates related to type-var(generic). Changed abstract `Poolable_Object` to type-var `A`
+    * Two new `new_pool_instance` functions(and their aliases) for instansing
+    * Marked the constructor `protected` to avoid confusion for end-users
+    * Added an extra `bool` arg to constructor to control if pool needs to be filled by `min` object count or not
+    * Removed `is_registered`, `set_as_registered`, and `get_factory` methods
+    * Removed `registered` variable
+    * `shutdown_pool` method won't check if the pool is `registered` (since `Pool_Context` is no more)
+    * Marking essential members `protected` for allowing sub-classes conrol the stuffs
+    * Some document update
+3. `Source_Code::Generic_Object_Pool_Policy`
+    * Changed the default `max` value(`DEF_MAX_OBJ_COUNT`) from `64` to `8` (since `64` would be too much for most cases)
+4. `Source_Code::Generic_Object_Pool_Safe_Guard`
+    * Type is generic `<A:Poolable_Object>` (as it's super interface is)
+    * Removed `is_registered` method
+    * Marked the constructor with default package access-spec
+    * Updated documentation 
+5. `Source_Code::Object_Pool`
+    * Type is generic `<A:Poolable_Object>`
+    * Changed return type of `create_object()`, and `get_an_instance()` methods from `Poolable_Object` to `A`(generic param type)
+    * Changed the input param of `release_an_instance` method from `Poolable_Object` to `A`(generic param type)
+    * Removed `is_registered` method
+6. `Source_Code::Pool_Context`
+    * Removed (internal context is no more)
+7. `Source_Code::Object_Pool_Type_Wrapper`
+    * Removed (use `Generic_Object_Pool` instead)
+8. Diagrams  
+    * Updated the class diagram (versioning file [here](./_diagrams/class_diagram_version_history.md))  
+    * Updated the composite structure diagram (versioning file [here](./_diagrams/composite_struc_diagram_version_history.md))  
+    * Updated the object pool state diagram (versioning file [here](./_diagrams/object_pool_state_version_history.md))
+9. Repo
+    * Updated `pom.xml`
+        * Added copyright literal for generated javadoc(plugin)
+        * Updated artifact to version `0.5.7`
+    * Updated `README.md`
+        * Renamed *Registering(And Grabbing) `Object_Pool` Instance* to *Creating An `Object_Pool` Instance*
+        * Updates the code related to registring a pool, or using the removed `Object_Pool_Type_Wrapper` class
+            * Updated both snippet 3, and 4 codes
+        * Removed *Q0* and *Q3* from *FAQ* section (reordered the questions)
+
+<hr/>
+
 **0.5.1** (Aug 23, 2020)  
 
 0. Intergration with [WAsys_Java_type_util](https://github.com/911992/WAsys_Java_type_util) repo

@@ -10,6 +10,12 @@ Created on: May 7, 2020 3:01:55 AM
     @author https://github.com/911992
   
 History:
+    0.5.7(20200829)
+        • Type is generic <A:Poolable_Object>
+        • Changed return type of create_object(), and get_an_instance() methods from Poolable_Object to A(generic param type)
+        • Changed the input param of release_an_instance method from Poolable_Object to A(generic param type)
+        • Removed is_registered method
+
     0.5.1(20200823)
         • Extending from Object_Factory<Poolable_Object> interafce
         • Updated documentation
@@ -40,9 +46,12 @@ import wasys.lib.java_type_util.reflect.type_sig.Object_Factory;
  * <p>
  * Since version 0.5.1, this interface is an {@link Object_Factory} too.
  * </p>
+ * <p>
+ * Since version 0.5.7, this interface is generic(type-var) too.
+ * </p>
  * @author https://github.com/911992
  */
-public interface Object_Pool extends AutoCloseable , Object_Factory<Poolable_Object> {
+public interface Object_Pool<A extends Poolable_Object> extends AutoCloseable , Object_Factory<A> {
 
     /**
      * Returns an object by either from the pool(already created), or asks the
@@ -76,7 +85,7 @@ public interface Object_Pool extends AutoCloseable , Object_Factory<Poolable_Obj
      *
      * @return a {@link Poolable_Object} instance
      */
-    public Poolable_Object get_an_instance();
+    public A get_an_instance();
 
     /**
      * Releases the given instance.
@@ -106,7 +115,7 @@ public interface Object_Pool extends AutoCloseable , Object_Factory<Poolable_Obj
      *
      * @param arg_instance the instance needed to be released
      */
-    public void release_an_instance(Poolable_Object arg_instance);
+    public void release_an_instance(A arg_instance);
 
     /**
      * @return the number of objects have created and idle(ready for use) in the
@@ -147,17 +156,6 @@ public interface Object_Pool extends AutoCloseable , Object_Factory<Poolable_Obj
     public boolean pool_is_working();
 
     /**
-     * Indicates if the current instance has registered, or not.
-     * <p>
-     * Please see {@link Pool_Context}</p>
-     *
-     * @return if instance of this pool has added to the context(any), if
-     * {@code true}, so the same reference could be grabbed from the context
-     * somewhere else.
-     */
-    public boolean is_registered();
-
-    /**
      * @return the policy instance where given by pool creation time
      */
     public Generic_Object_Pool_Policy get_policy();
@@ -172,7 +170,7 @@ public interface Object_Pool extends AutoCloseable , Object_Factory<Poolable_Obj
      * @since 0.5.1
      */
     @Override
-    public Poolable_Object create_object(Class type);
+    public A create_object(Class type);
     
     
 }
