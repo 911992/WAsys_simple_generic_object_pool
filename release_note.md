@@ -4,6 +4,15 @@ repo: https://github.com/911992/WAsys_simple_generic_object_pool
 Author: [911992](https://github.com/911992)  
 *(NOTE: following list carries mentionable(not all) changes. For detailed changes, check source code(s))*  
 
+**0.5.9** (Sept 9, 2020)  
+
+0. Repo
+    * Updated `pom.xml`
+        * Updated dependency of `WAsys_Java_type_util` to `0.1.9`
+        * Updated artifact to version `0.5.9`
+
+<hr/>
+
 **0.5.7** (Aug 29, 2020)  
 
 0. Marked the `Object_Pool` generic.
